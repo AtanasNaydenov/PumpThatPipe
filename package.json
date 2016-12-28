@@ -1,0 +1,15 @@
+{
+  "name": "pump_that_pipe",
+  "version": "1.0.0",
+  "description": "The pipeline flow network designer application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u001b[A\u001b[B\u001b[C\u001b[Dhttps://github.com/AtanasNaydenov/PumpThatPipe.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
