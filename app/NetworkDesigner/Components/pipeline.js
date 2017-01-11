@@ -1,31 +1,54 @@
-class Pipeline extends Part{
+class Pipeline extends Part
+{
     
     //To be implemented later
-    var maxflow;
-    var currentflow;
-    var state;
+    static maxflow;
+    //var currentflow;
+    //var state;
     
-    constructor()
+    constructor(maxfl,curflow,)
     {
-        
+        super();
+        SetMaxFlow(maxfl);
+        this.currentflow=curflow;
+        UpdateState();
     }
     
     
-    void function UpdateState(){}
-    function SetStartingComponent(component){}
-    function SetEndComponent(component){}
-    void function UpdateFlow(flow){
+    UpdateState(){
+        if(currentflow>maxflow)
+            state=Pipe_states.URGENT;
+        else
+            if(currentflow>0.8*maxflow &&currentflow<maxflow)
+                state=Pipe_states.WARNING;
+            else
+                if(currentflow>0.5*maxflow && currentflow<0.8*maxflow)
+                    state=Pipe_states.ALERTED;
+            else
+                state=Pipe_states.SAFE;
+    }
+    SetStartingComponent(component){
+        outputParts.push(component);
+    }
+    SetEndComponent(component){
+        inputParts.push(component);
+    }
+    UpdateFlow(flow){
         this.currentflow=flow;
     }
-    void SetMaxFlow(maxflow){
+    SetMaxFlow(maxflow){
         this.maxflow=maxflow;
     }
-    function GetStartingComponent(){}
-    function GetEndComponent(){}
-    function Detach(){}
-    function Swap(){}
-    
-    function Contains(x,y){}
+    GetStartingComponent(){
+        return outputParts;
+    }
+    GetEndComponent(){
+        return inputParts;
+    }
+    Detach(){}
+    Swap(){}
+
+    Contains(x,y){}
 }
 
 //The Pipe_states enumeration
