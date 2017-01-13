@@ -43,10 +43,14 @@ class MasterCtrl {
 
     // due to the js convention to make method names starting with lowercase letters
     createPart(type) {
+
+        // TO TEST
+
         //assuming that type is sent as a integer
         let _part = {};
-        _createdSuccesfully = true;
-        _progState = ProgramStateEnum.CREATECOMPONENT;
+        let _createdSuccesfully = true;
+        let _progState = ProgramStateEnum.CREATECOMPONENT;
+
         switch (type) {
             case (int)(PartTypeEnum.ADJUSTABLE_SPLITTER):
                 _part = new AjustableSplitter();
@@ -76,17 +80,37 @@ class MasterCtrl {
                 _createdSuccesfully = false;
                 break;
         }
+
         console.dir(_part); // enumerates through the properties of the object passed as a parameter
+
+
         if (_createdSuccesfully) {
             // even though the state will be changed to IDLE if the proccess has been failed, 
             // why bother calling the method... 
+
+            this.CurrentNetworkCtrl.setSelectedTemplatePart(_part); // set the new part
             this.SetState(_progState);
         }
     };
 
     addPart(x, y) {
-        //TO DO 
-    }
+        //TO DO
+        let _part = this.CurrentNetworkCtrl.SelectedTemplatePart;
+
+        if (this.ProgramState = ProgramStateEnum.CREATECOMPONENT)
+        // if the component is the thing to be added
+        {
+            let _res = this.CurrentNetworkCtrl.putComponent(x, y);
+            if (_res) {
+                this.draw(_part);
+            }
+            console.log('added a part');
+        }
+        else {
+            console.log('not creating a component, shall not execute');
+        }
+    };
+
 
     connectPipeline(x, y) {
         //TO DO
@@ -127,26 +151,27 @@ class MasterCtrl {
     // canvas manipulations
 
     selectPart(x, y) {
-        //TO DO 
+        let _res = this.CurrentNetworkCtrl.detectPart(x, y);
+
     }
 
     removeSelectedPart() {
         //TO DO 
     }
 
-    modifySelectedPart() {
+    modifySelectedPart(settings) { // where settings is a object (in JSON format) with the properties to be modified
         //TO DO 
     }
 
     setState(progState) {
         // requires checking whether such transition can hold
-        if(ProgramState
+        if (ProgramState
             .transitions[(int)(this.ProgramState)] // current program state
-            .linkedTo.contains((int)(progState))){ // has a transition to desired state
-                this.ProgramState = progState; // then this transition takes place
-                return true;
-            }
-        console.log("Program state transition failed: " 
+            .linkedTo.contains((int)(progState))) { // has a transition to desired state
+            this.ProgramState = progState; // then this transition takes place
+            return true;
+        }
+        console.log("Program state transition failed: "
             + this.ProgramState + " does not link to " + progState);
         return false;
     }
