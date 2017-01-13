@@ -1,60 +1,55 @@
+//Setting the static variable
+function SetMaxflow(maxfl)
+{
+    Pipeline.maxflow=maxfl;
+}
+//The Pipe_states enumeration
+const Pipe_states = {
+    SAFE: 'SAFE',
+    ALERTED: 'ALERTED',
+    WARNING: 'WARNING',
+    URGENT: 'URGENT'
+};
+
+
 class Pipeline extends Part
 {
-    
-    //To be implemented later
-    static maxflow;
-    //var currentflow;
-    //var state;
-    
-    constructor(maxfl,curflow,)
+    constructor(curflow,)
     {
         super();
-        SetMaxFlow(maxfl);
+        this.maxflow=0;
         this.currentflow=curflow;
-        UpdateState();
+        SetMaxflow();
     }
-    
-    
     UpdateState(){
-        if(currentflow>maxflow)
-            state=Pipe_states.URGENT;
+        if(this.currentflow>maxflow)
+            this.state=Pipe_states.URGENT;
         else
-            if(currentflow>0.8*maxflow &&currentflow<maxflow)
-                state=Pipe_states.WARNING;
+            if(this.currentflow>0.8*maxflow && this.currentflow<maxflow)
+                this.state=Pipe_states.WARNING;
             else
-                if(currentflow>0.5*maxflow && currentflow<0.8*maxflow)
-                    state=Pipe_states.ALERTED;
+                if(this.currentflow>0.5*maxflow && this.currentflow<0.8*maxflow)
+                    this.state=Pipe_states.ALERTED;
             else
-                state=Pipe_states.SAFE;
+                this.state=Pipe_states.SAFE;
     }
     SetStartingComponent(component){
-        outputParts.push(component);
+        this.outputParts.push(component);
     }
     SetEndComponent(component){
-        inputParts.push(component);
+        this.inputParts.push(component);
     }
     UpdateFlow(flow){
         this.currentflow=flow;
     }
-    SetMaxFlow(maxflow){
-        this.maxflow=maxflow;
-    }
     GetStartingComponent(){
-        return outputParts;
+        return outputParts[0];
     }
     GetEndComponent(){
-        return inputParts;
+        return inputParts[0];
     }
     Detach(){}
     Swap(){}
 
     Contains(x,y){}
 }
-
-//The Pipe_states enumeration
-var Pipe_states = {
-    SAFE: 'SAFE',
-    ALERTED: 'ALERTED',
-    WARNING: 'WARNING',
-    URGENT: 'URGENT'
-};
