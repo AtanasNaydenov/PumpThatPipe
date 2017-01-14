@@ -1,13 +1,14 @@
 .canvas {
     width: 100%;
     height: 100%;
-    margin: 0;
 
 }
 
 body{
     --area-from-top: 80px;
     --area-on-right: 15%;
+    margin: 0;
+    padding: 0;
 }
 
 /*Component area*/
@@ -17,7 +18,6 @@ body{
     width: inherit;
     height: var(--area-from-top);
     display: inline;
-
 }
 
 
@@ -48,7 +48,7 @@ body{
     margin-left: 38%;
 }
 
-.componentIntroduction h2, p {
+.componentsBar .componentIntroduction h2,.componentsBar .componentIntroduction p {
     color: lightsalmon;
     font-family: Arial;
     line-height:80%;
@@ -65,17 +65,20 @@ body{
     background-color: #1f1f1f;
     position: fixed;
     width: var(--area-on-right);
-    height: 100%;
+    height: 150%;
     right:0;
+    clear: both;
 }
 
 .actionButtons {
     top:var(--area-from-top);
     width: 100%;
+    height: 400px;
     position: absolute;
+    border-bottom: 1px solid gray;
 }
 
-.optionsBar input[type=button]{
+.actionButton input[type=button]{
     width: 100%;
     font-size: 120%;
     color: salmon;
@@ -83,11 +86,11 @@ body{
     background-color: #0e0e0e;
 }
 
-input[type=button]:hover{
+.actionButton input[type=button]:hover{
     border: 1px solid salmon;
 }
 
-.actionButtons p, h4, h3 {
+.optionsBar  p, h4, h3 {
     color: #ffecde;
     font-family: Arial;
     font-weight: 100;
@@ -95,21 +98,18 @@ input[type=button]:hover{
 
 .selectedCompOptions {
     padding: 5%;
+    position: static;
 }
 
 
 #custom-handle {
     width: 35px;
     height: 25px;
-    top: 50%;
-    margin-top: -.8em;
     text-align: center;
     line-height: 1.6em;
     background-color: lightsalmon;
     border: none;
 }
-
-
 
 #slider {
     width: 70%;
@@ -117,6 +117,27 @@ input[type=button]:hover{
     left: 10%;
 }
 
+.selectedCompOptions input[type=button]{
+    position: static;
+    margin-top:20%;
+    color: #1f1f1f;
+    background-color: lightsalmon;
+    border: none;
+    float: right;
+    height: 30px;
+    width: 35%;
+}
+
+.globalSettings {
+    padding-top: 480px;
+    padding-left: 5%;
+    position: absolute;
+}
+
+.globalSettings #spinner {
+    width: 25px;
+    height: 20px;
+}
 
 /*drawing area*/
 

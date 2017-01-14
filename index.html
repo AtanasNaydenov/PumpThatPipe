@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
     <title>Pump that pipe</title>
     <script type="text/javascript" src="assets/interaction.js"></script>
     <link rel="stylesheet" href="assets/design.css">
@@ -20,12 +21,12 @@
 
        <!-- <h3>Pump that pipe</h3>-->
         <div class="componentButtons">
-        <input type="image" id="pump" src="assets/Components/pump2.png" title="Pump" onclick="DisplayCompIntro('pump')">
-        <input type="image" id="sink" src="assets/Components/sink2.png" title="Sink" onclick="DisplayCompIntro('sink')">
-        <input type="image" id="merger" src="assets/Components/merger2.png" title="Merger" onclick="DisplayCompIntro('merger')">
-        <input type="image" id="splitter" src="assets/Components/splitter2.png" title="Splitter" onclick="DisplayCompIntro('splitter')">
-        <input type="image" id="asplitter" src="assets/Components/asplitter2.png" title="Adjustable Splitter" onclick="DisplayCompIntro('asplitter')">
-            <input type="image"  id="pipeline" src="assets/Components/pipeline.png" title="Pipeline" onclick="DisplayCompIntro('pipeline')">
+        <input type="image" id="pump" src="assets/Components/pump2.png" title="Pump" onclick="DisplayCompIntro('pump')"/>
+        <input type="image" id="sink" src="assets/Components/sink2.png" title="Sink" onclick="DisplayCompIntro('sink')"/>
+        <input type="image" id="merger" src="assets/Components/merger2.png" title="Merger" onclick="DisplayCompIntro('merger')"/>
+        <input type="image" id="splitter" src="assets/Components/splitter2.png" title="Splitter" onclick="DisplayCompIntro('splitter')"/>
+        <input type="image" id="asplitter" src="assets/Components/asplitter2.png" title="Adjustable Splitter" onclick="DisplayCompIntro('asplitter')"/>
+            <input type="image"  id="pipeline" src="assets/Components/pipeline.png" title="Pipeline" onclick="DisplayCompIntro('pipeline')"/>
             </div>
         <div class="componentIntroduction">
             <h2 id="comName"></h2>
@@ -33,24 +34,30 @@
         </div>
     </div>
 
-    <div class="optionsBar" style="z-index: 10;">
+    <div class="optionsBar" style="z-index: 12;">
         <div class="actionButtons">
-            <div class="actionButton"><input type="button" value="Save" onclick=""></div>
-            <div class="actionButton"><input type="button" value="Open" onclick=""></div>
-            <div class="actionButton"><input type="button" value="New" onclick=""></div>
+            <div class="actionButton"><input type="button" value="Save" onclick=""/></div>
+            <div class="actionButton"><input type="button" value="Open" onclick=""/></div>
+            <div class="actionButton"><input type="button" value="New" onclick=""/></div>
            <div class="selectedCompOptions">
             <h4 id="selectedCaption">CURRENTLY SELECTED:</h4>
             <h3 id="selectedName">ADJUSTABLE SPLITTER</h3>
             <br>
             <p id="selectedOption1">Upper outflow:</p>
-
                <div id="slider">
                    <div id="custom-handle" class="ui-slider-handle"></div>
                </div>
+             <p id="selectedOption2"></p>
+               <input type="button" value="Delete" onclick=""/>
            </div>
+        </div><br>
 
-        </div>
+            <div class="globalSettings">
+                <h4>GLOBAL SETTINGS:</h4>
+                <p><label for="spinner">Adjust pipeline capacity <br>
+                    for the network:</label><br><br><input id="spinner" name="value"></p>
 
+            </div>
     </div>
     <div class="drawingArea" style="z-index: 1;"></div>
 </div>
