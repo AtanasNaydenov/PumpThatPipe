@@ -62,13 +62,23 @@ class Component extends Part {
     {
         outputParts.push(pipeline);
     }
-    RemovePipelines(pipelines)
+
+    RemovePipelines()
     {
-        this.outputParts=[];
-        this.inputParts=[];
+        linkedPipes = {};
+        linkedPipes.inputParts = this.inputParts;
+        linkedPipies.outputParts = this.outputParts;
+
+        var pipelines=this.outputParts.concat(this.inputParts);
 
         for(let pipeline in pipelines)
             pipeline.Detach();
+
+
+        this.outputParts=[];
+        this.inputParts=[];
+
+        return linkedPipes;
     }
 }
 
