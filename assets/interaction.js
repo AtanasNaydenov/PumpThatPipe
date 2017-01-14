@@ -13,10 +13,10 @@ function init() {
 
 }*/
 
-
+//Display short description of component in the upper componentsbar
  function DisplayCompIntro(selected)
  {
-     Console.log(selected);
+     console.log(selected);
     var texth2, textp;
     if(selected=='pump'){
         texth2="Pump";
@@ -24,7 +24,7 @@ function init() {
         }
     else if(selected=='sink'){
         texth2="Sink";
-        textp="Ending-point of network. In:1    Out:0";
+        textp="Ending-point of network. In:1 or infinite    Out:0";
     }
     else if(selected=='merger'){
         texth2="Merger";
@@ -40,8 +40,27 @@ function init() {
     }
     else if(selected=='pipeline'){
         texth2="Pipeline";
-        textp="Connects two components. In:1    Out:!";
+        textp="Connects two components. In:1    Out:1";
     }
+
     document.getElementById("comName").innerHTML = texth2;
     document.getElementById("comIntro").innerHTML = textp;
 }
+
+//JQuery for slider, code gotten from jquery API site
+$( function() {
+    var handle = $( "#custom-handle" );
+    $( "#slider" ).slider({
+        max:15,
+        create: function() {
+            handle.text( $( this ).slider( "value" ) );
+        },
+        slide: function( event, ui ) {
+            handle.text( ui.value );
+        }
+    });
+} );
+
+
+//source:set maxflow, current flow
+//

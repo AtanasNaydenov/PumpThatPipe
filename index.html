@@ -1,42 +1,58 @@
 <!-- The main (or maybe the only) 'page' -->
 <!-- to start - this stuff's used: https://www.npmjs.com/package/http-server -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <script type="text/javascript" src="assets/interaction.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="assets/design.css">
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <title>Pump that pipe</title>
+    <script type="text/javascript" src="assets/interaction.js"></script>
+    <link rel="stylesheet" href="assets/design.css">
 </head>
-
 <body>
-
 <div class="canvas" >
     <div class="componentsBar" style="z-index: 11;">
 
 
        <!-- <h3>Pump that pipe</h3>-->
         <div class="componentButtons">
-        <input type="image" id="pump" src="assets/Components/pump2.png" title="Pump" onlick="DisplayCompIntro('pump')">
-        <input type="image" id="sink" src="assets/Components/sink2.png" title="Sink" onlick="DisplayCompIntro('sink')">
-        <input type="image" id="merger" src="assets/Components/merger2.png" title="Merger" onlick="DisplayCompIntro('merger')">
-        <input type="image" id="splitter" src="assets/Components/splitter2.png" title="Splitter" onlick="DisplayCompIntro('splitter')">
-        <input type="image" id="asplitter" src="assets/Components/asplitter2.png" title="Adjustable Splitter" onlick="DisplayCompIntro('asplitter')">
-            <input type="image"  id="pipeline" src="assets/Components/pipeline.png" title="Pipeline" onlick="DisplayCompIntro('pipeline')">
+        <input type="image" id="pump" src="assets/Components/pump2.png" title="Pump" onclick="DisplayCompIntro('pump')">
+        <input type="image" id="sink" src="assets/Components/sink2.png" title="Sink" onclick="DisplayCompIntro('sink')">
+        <input type="image" id="merger" src="assets/Components/merger2.png" title="Merger" onclick="DisplayCompIntro('merger')">
+        <input type="image" id="splitter" src="assets/Components/splitter2.png" title="Splitter" onclick="DisplayCompIntro('splitter')">
+        <input type="image" id="asplitter" src="assets/Components/asplitter2.png" title="Adjustable Splitter" onclick="DisplayCompIntro('asplitter')">
+            <input type="image"  id="pipeline" src="assets/Components/pipeline.png" title="Pipeline" onclick="DisplayCompIntro('pipeline')">
             </div>
         <div class="componentIntroduction">
-            <h2><div id="comName"></div></h2>
-            <p><div id="comIntro"></div></p>
+            <h2 id="comName"></h2>
+            <p id="comIntro"></p>
         </div>
     </div>
-    <div class="drawingArea" style="z-index: 1;"></div>
+
     <div class="optionsBar" style="z-index: 10;">
         <div class="actionButtons">
-            <div class="actionButton"><input type="button" value="Save" onlick=""></div>
+            <div class="actionButton"><input type="button" value="Save" onclick=""></div>
             <div class="actionButton"><input type="button" value="Open" onclick=""></div>
             <div class="actionButton"><input type="button" value="New" onclick=""></div>
+           <div class="selectedCompOptions">
+            <h4 id="selectedCaption">CURRENTLY SELECTED:</h4>
+            <h3 id="selectedName">ADJUSTABLE SPLITTER</h3>
+            <br>
+            <p id="selectedOption1">Upper outflow:</p>
+
+               <div id="slider">
+                   <div id="custom-handle" class="ui-slider-handle"></div>
+               </div>
+           </div>
+
         </div>
+
     </div>
+    <div class="drawingArea" style="z-index: 1;"></div>
 </div>
 </body>
 </html>
