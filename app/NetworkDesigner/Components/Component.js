@@ -8,9 +8,10 @@ function Dimensions(x,y)
 }
 
 class Component extends Part {
-    constructor(x, y, currentamount, blabla) {
-        super();
-        this.currentAmount = currentamount;
+
+    constructor(maxNrInp,currentamount) {
+        super(maxNrInp);
+        this.currentAmount = currentamount ;
     }
 
     SetLocation(x, y) {
@@ -20,7 +21,7 @@ class Component extends Part {
     GetInflow()
     {
         let sum=0;
-        for(let inpipeline of inputParts)
+        for(let inpipeline in this.inputParts)
             sum=sum+inpipeline.currentflow;
 
         return sum;
@@ -28,16 +29,16 @@ class Component extends Part {
     GetOutflow()
     {
         let sum=0;
-        for(let outpipeline of inputParts)
+        for(let outpipeline in this.outputParts)
             sum=sum+outpipeline.currentflow;
 
         return sum;
     }
     RemoveInput(pipeline)
     {
-        for(let i=0;i<inputParts.length;i++)
-            if(inputParts[i].id==pipeline.id)
-            {   inputParts.splice(i,1);
+        for(let i=0;i<this.inputParts.length;i++)
+            if(this.inputParts[i].id==pipeline.id)
+            {   this.inputParts.splice(i,1);
                 break;
             }
 
@@ -58,6 +59,14 @@ class Component extends Part {
     AddOutput(pipeline)
     {
         outputParts.push(pipeline);
+    }
+    RemovePipelines(pipelines)
+    {
+        this.outputParts=[];
+        this.inputParts=[];
+
+        for(let pipeline in pipelines)
+            pipeline.Detach();
     }
 }
 

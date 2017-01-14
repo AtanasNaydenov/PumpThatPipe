@@ -11,24 +11,24 @@ const Pipe_states = {
     URGENT: 'URGENT'
 };
 
-
+//The pipeline class
 class Pipeline extends Part
 {
-    constructor(curflow,)
+    constructor(maxNrInp,curflow)
     {
-        super();
+        super(maxNrInp);
         this.maxflow=0;
         this.currentflow=curflow;
         SetMaxflow();
     }
     UpdateState(){
-        if(this.currentflow>maxflow)
+        if(this.currentflow>this.maxflow)
             this.state=Pipe_states.URGENT;
         else
-            if(this.currentflow>0.8*maxflow && this.currentflow<maxflow)
+            if(this.currentflow>0.8*this.maxflow && this.currentflow<this.maxflow)
                 this.state=Pipe_states.WARNING;
             else
-                if(this.currentflow>0.5*maxflow && this.currentflow<0.8*maxflow)
+                if(this.currentflow>0.5*this.maxflow && this.currentflow<0.8*this.maxflow)
                     this.state=Pipe_states.ALERTED;
             else
                 this.state=Pipe_states.SAFE;
@@ -41,6 +41,7 @@ class Pipeline extends Part
     }
     UpdateFlow(flow){
         this.currentflow=flow;
+        this.UpdateState();
     }
     GetStartingComponent(){
         return outputParts[0];
@@ -48,7 +49,10 @@ class Pipeline extends Part
     GetEndComponent(){
         return inputParts[0];
     }
-    Detach(){}
+    Detach(){
+        this.outputParts=[];
+        this.inputParts=[];
+    }
     Swap(){}
 
     Contains(x,y){}
