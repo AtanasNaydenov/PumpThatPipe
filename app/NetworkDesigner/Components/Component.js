@@ -38,7 +38,8 @@ class Component extends Part {
     {
         for(let i=0;i<this.inputParts.length;i++)
             if(this.inputParts[i].id==pipeline.id)
-            {   this.inputParts.splice(i,1);
+            {
+                this.inputParts.splice(i,1);
                 break;
             }
 
@@ -47,7 +48,8 @@ class Component extends Part {
     {
         for(let i=0;i<outputParts.length;i++)
             if(outputParts[i].id==pipeline.id)
-            {   inputParts.splice(i,1);
+            {
+                inputParts.splice(i,1);
                 break;
             }
 

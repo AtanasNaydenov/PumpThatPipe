@@ -2,7 +2,7 @@ class Splitter extends Component
 {
     constructor(maxNrInp,currentamount,percentage)
     {
-        super(maxNr,currentamount);
+        super(maxNrInp,currentamount);
         this.percentage=percentage;
     }
 }

@@ -1,6 +1,6 @@
 class Pump extends Component{
-    constructor(x, y, maxNrImp){
-        super(x,y,maxNrImp);
+    constructor(maxNrInp,currentamount) {
+        super(maxNrInp,currentamount);
     }
     SetOutflow(x){
         if(x<=this.maxFlow){

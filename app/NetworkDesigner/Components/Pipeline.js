@@ -1,4 +1,4 @@
-//Setting the static variable
+//Setting the static variable maxflow of all pipelines
 function SetMaxflow(maxfl)
 {
     Pipeline.maxflow=maxfl;
@@ -11,16 +11,16 @@ const Pipe_states = {
     URGENT: 'URGENT'
 };
 
-//The pipeline class
 class Pipeline extends Part
 {
     constructor(maxNrInp,curflow)
     {
         super(maxNrInp);
-        this.maxflow=0;
         this.currentflow=curflow;
         SetMaxflow();
+        this.UpdateState();
     }
+
     UpdateState(){
         if(this.currentflow>this.maxflow)
             this.state=Pipe_states.URGENT;
@@ -40,7 +40,12 @@ class Pipeline extends Part
         this.inputParts.push(component);
     }
     UpdateFlow(flow){
-        this.currentflow=flow;
+        if(flow<this.maxflow) {
+            this.currentflow = flow;
+            return true;
+        }
+        else
+            return false;
         this.UpdateState();
     }
     GetStartingComponent(){
@@ -53,7 +58,11 @@ class Pipeline extends Part
         this.outputParts=[];
         this.inputParts=[];
     }
+
+    //What is this method guys?
     Swap(){}
 
-    Contains(x,y){}
+    Contains(x,y){
+
+    }
 }
