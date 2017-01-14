@@ -113,7 +113,59 @@ class MasterCtrl {
 
 
     connectPipeline(x, y) {
-        //TO DO
+        switch (this.ProgramState) {
+
+            // first is waiting to be connected
+            case ProgramStateEnum.ADDINGPIPELINEIN:
+                _component = this.CurrentNetworkCtrl.detectComponent(x, y);
+                if (_component != null) {
+                    try {
+                        let _res = this.CurrentNetworkCtrl.SelectedTemplatePart.setStartComponent(_component);
+                        if (_res) {
+                            console.log("succesfully added input to the pipeline");
+                            this.setState(ProgramStateEnum.ADDINGPIPELINEOUT);
+                        } else {
+                            console.log("did not add input to the pipeline");
+                        }
+
+                    } catch (e) {
+                        console.log("something went wrong: " + e);
+                    }
+                }
+                break;
+
+            // first already connected    
+            case ProgramStateEnum.ADDINGPIPELINEOUT:
+                _component = this.CurrentNetworkCtrl.detectComponent(x, y);
+                if (_component != null) {
+                    try {
+
+                        let _pipelineInProgress = this.CurrentNetworkCtrl.SelectedTemplatePart;
+                        let _res = _pipelineInProgress.setEndComponent(_component);
+
+                        if (_res) {
+                            console.log("succesfully added output to the pipeline");
+                            this.CurrentNetworkCtrl.addPipeline(
+                                this.CurrentNetworkCtrl.SelectedTemplatePart.GetStartingComponent(),
+                                this.CurrentNetworkCtrl.SelectedTemplatePart.GetEndComponent()
+                            )
+                            //can be drawn
+                            this.draw(_pipelineInProgress);
+
+                        } else {
+                            console.log("did not add output to the pipeline");
+                        }
+                    } catch (e) {
+                        console.log("something went wrong: " + e);
+                    }
+                }
+                break;
+            // something else    
+            default:
+                console.log("the program is not in a correct state");
+                console.log("current state: " + this.ProgramState);
+                break;
+        }
     }
 
     // canvas output
@@ -140,8 +192,21 @@ class MasterCtrl {
         //TO DO 
     }
 
-    updateSettings() {
-        //TO DO 
+    updateSettings(settings) {
+        let _tempUpdateUnit = {};
+        // to make sure the sent object contains relevant values
+        for (var key in settings) {
+            if (p.hasOwnProperty(key)) {
+                console.log(key + " -> " + p[key]);
+                _tempUpdateUnit[key] = p[key];
+            }
+        }
+
+        let _res = this.CurrentNetworkCtrl.modifyGlobalSettings(_tempUpdateUnit);
+        if (_res) {
+            this.updateCanvas();
+            this.setState(ProgramStateEnum.IDLE);
+        }
     }
 
     setCurrentNetworkController(nc) {
@@ -151,16 +216,66 @@ class MasterCtrl {
     // canvas manipulations
 
     selectPart(x, y) {
-        let _res = this.CurrentNetworkCtrl.detectPart(x, y);
-
+        let _detectedPart = this.CurrentNetworkCtrl.detectPart(x, y);
+        if (_detectedPart != null) {
+            this.setState(ProgramStateEnum.CANVASPARTSELECTED);
+            console.log("detected a part: " + _detectedPart);
+        } else {
+            console.log("did not detect a part");
+            this.setState(ProgramStateEnum.IDLE);
+        }
     }
 
+    // the part removal is tackled inside of the NC class' methods.
     removeSelectedPart() {
-        //TO DO 
+        if (this.ProgramState == ProgramStateEnum.CANVASPARTSELECTED) {
+
+            let _selectedPart = this.CurrentNetworkCtrl.SelectedExistingPart;
+            try {
+                let _res = this.CurrentNetworkCtrl.remove(_selectedPart);
+                if (_res) {
+                    console.log("successfully deleted");
+                    this.setState(ProgramStateEnum.IDLE);
+                } else {
+                    console.log(_selectedPart + " -> could not be deleted for some reason");
+                    this.setState(ProgramStateEnum.IDLE);
+                }
+            } catch (e) {
+                console.log(e);
+                this.setState(ProgramStateEnum.IDLE);
+            }
+        }
+
     }
 
     modifySelectedPart(settings) { // where settings is a object (in JSON format) with the properties to be modified
-        //TO DO 
+        if (this.ProgramState == ProgramStateEnum.CANVASPARTSELECTED) {
+
+            let _tempUpdateUnit = {};
+            // to make sure the sent object contains relevant values
+            for (var key in settings) {
+                if (p.hasOwnProperty(key)) {
+                    console.log(key + " -> " + p[key]);
+                    _tempUpdateUnit[key] = p[key];
+                }
+            }
+            let _selectedPart = this.CurrentNetworkCtrl.SelectedExistingPart;
+            try {
+                let _res = this.CurrentNetworkCtrl.updateExistingSelectedPart(_tempUpdateUnit);
+                if (_res) {
+                    console.log("successfully updated");
+                    this.updateCanvas();
+                    this.setState(ProgramStateEnum.IDLE);
+
+                } else {
+                    console.log(_selectedPart + " -> could not be updated for some reason");
+                    this.setState(ProgramStateEnum.IDLE);
+                }
+            } catch (e) {
+                console.log(e);
+                this.setState(ProgramStateEnum.IDLE);
+            }
+        }
     }
 
     setState(progState) {
@@ -168,7 +283,13 @@ class MasterCtrl {
         if (ProgramState
             .transitions[(int)(this.ProgramState)] // current program state
             .linkedTo.contains((int)(progState))) { // has a transition to desired state
+
             this.ProgramState = progState; // then this transition takes place
+            if (this.ProgramState == ProgramStateEnum.IDLE) {
+                // maybe not required, take note!
+                this.CurrentNetworkCtrl.SelectedExistingPart = {};
+                this.CurrentNetworkCtrl.SelectedTemplatePart = {};
+            }
             return true;
         }
         console.log("Program state transition failed: "
