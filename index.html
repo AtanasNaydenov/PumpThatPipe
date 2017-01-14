@@ -1,15 +1,43 @@
 <!-- The main (or maybe the only) 'page' -->
 <!-- to start - this stuff's used: https://www.npmjs.com/package/http-server -->
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            Pump That Pipe
-        </title>
-    </head>
-    <body>
-        <h3>Pipelines are being layed.</h3>
-        <p>The app is currently under construction</p>
-        <p>Thank you for your patience</p>   
-    </body>
+<head>
+    <script type="text/javascript" src="interaction.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="design.css">
+    <title>Pump that pipe</title>
+</head>
+
+<body>
+
+<div class="canvas" >
+    <div class="componentsBar" style="z-index: 11;">
+
+
+       <!-- <h3>Pump that pipe</h3>-->
+        <div class="componentButtons">
+        <input type="image" id="pump" src="Components/pump2.png" title="Pump" onlick="DisplayCompIntro('pump')">
+        <input type="image" id="sink" src="Components/sink2.png" title="Sink" onlick="DisplayCompIntro('sink')">
+        <input type="image" id="merger" src="Components/merger2.png" title="Merger" onlick="DisplayCompIntro('merger')">
+        <input type="image" id="splitter" src="Components/splitter2.png" title="Splitter" onlick="DisplayCompIntro('splitter')">
+        <input type="image" id="asplitter" src="Components/asplitter2.png" title="Adjustable Splitter" onlick="DisplayCompIntro('asplitter')">
+            <input type="image"  id="pipeline" src="Components/pipeline.png" title="Pipeline" onlick="DisplayCompIntro('pipeline')">
+            </div>
+        <div class="componentIntroduction">
+            <h2><div id="comName"></div></h2>
+            <p><div id="comIntro"></div></p>
+        </div>
+    </div>
+    <div class="drawingArea" style="z-index: 1;"></div>
+    <div class="optionsBar" style="z-index: 10;">
+        <div class="actionButtons">
+            <div class="actionButton"><input type="button" value="Save" onlick=""></div>
+            <div class="actionButton"><input type="button" value="Open" onclick=""></div>
+            <div class="actionButton"><input type="button" value="New" onclick=""></div>
+        </div>
+    </div>
+</div>
+</body>
 </html>
 
