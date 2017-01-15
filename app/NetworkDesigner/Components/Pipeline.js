@@ -50,6 +50,8 @@ class Pipeline extends Part
         return inputParts[0];
     }
     Detach(){
+
+
         this.outputParts=[];
         this.inputParts=[];
     }

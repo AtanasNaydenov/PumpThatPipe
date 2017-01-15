@@ -67,7 +67,7 @@ class Component extends Part {
     {
         linkedPipes = {};
         linkedPipes.inputParts = this.inputParts;
-        linkedPipies.outputParts = this.outputParts;
+        linkedPipes.outputParts = this.outputParts;
 
         var pipelines=this.outputParts.concat(this.inputParts);
 
