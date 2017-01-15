@@ -50,13 +50,27 @@ class Pipeline extends Part
         return inputParts[0];
     }
     Detach(){
-
+        updateConnections(this.outputParts[0]);
 
         this.outputParts=[];
         this.inputParts=[];
     }
 
-    //What is this method guys?
+    updateConnections(part) {
+        if (part instanceof Pipeline()) {
+            part.UdpdateFlow(part.Inputs[0].GetOutFlow());
+            return updateConnections(part.outputParts[0]);
+        } else {
+            // assuming component
+            part.CurrentAmount = part.GetInflow();
+            for (let i = 0; i < part.outputParts.len; i++) {
+                return updateConnections(part.outputParts[i]);
+            }
+            // safely return a blocking result
+            return 'halted';
+        }
+    }
+
     Swap(){}
 
     Contains(x,y){
