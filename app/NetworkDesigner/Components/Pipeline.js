@@ -34,18 +34,13 @@ class Pipeline extends Part
                 this.state=Pipe_states.SAFE;
     }
     SetStartingComponent(component){
-        this.outputParts.push(component);
-    }
-    SetEndComponent(component){
         this.inputParts.push(component);
     }
+    SetEndComponent(component){
+        this.outputParts.push(component);
+    }
     UpdateFlow(flow){
-        if(flow<this.maxflow) {
-            this.currentflow = flow;
-            return true;
-        }
-        else
-            return false; 
+        this.currentflow = flow;
         this.UpdateState();
     }
     GetStartingComponent(){

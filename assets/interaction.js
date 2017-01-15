@@ -40,7 +40,7 @@ function init() {
     }
     else if(selected=='pipeline'){
         texth2="Pipeline";
-        textp="Connects two components. In:1    Out:1";
+        textp="Connects two components. Click on start-component and then end-component";
     }
 
     document.getElementById("comName").innerHTML = texth2;
@@ -52,6 +52,7 @@ $( function() {
     var handle = $( "#custom-handle" );
     $( "#slider" ).slider({
         max:15,
+        value:10,
         create: function() {
             handle.text( $( this ).slider( "value" ) );
         },
@@ -62,5 +63,30 @@ $( function() {
 } );
 
 
-//source:set maxflow, current flow
-//
+
+//following function is not yet finished, might even exchange it to jquery hide/show to ease work
+function DisplayCompOptions(selected){
+    var txtselectedCaption, txtselectedName, txtselectedOption1, txtselectedOption2;
+    if(selected=='asplitter'){
+        txtselectedName='ADJUSTABLE SPLITTER';
+        txtselectedOption1='Upper outflow:'
+    }
+    else if(selected=='pump'){
+        txtselectedName='PUMP';
+        txtselectedOption1='Max flow:';
+        txtselectedOption2='Current flow:';
+        document.getElementById("selectedOption2").innerHTML=txtselectedOption2;
+    }
+    txtselectedCaption='CURRENTLY SELECTED';
+    document.getElementById("selectedCaption").innerHTML=txtselectedCaption;
+    document.getElementById("selectedName").innerHTML=txtselectedName;
+    document.getElementById("selectedOption1").innerHTML=txtselectedOption1;
+}
+
+//function to set pipelines maxflow, it will get some improvement to control user input (avoid non-integers/out of range)
+$( function() {
+    $( "#spinner" ).spinner({
+        min:0,
+        max:100,
+    }).val(10);
+} );
