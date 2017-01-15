@@ -3,13 +3,14 @@ var partIdGlobal = 0;
 
 class Part {
 //constructor
-  constructor(maxNrInp) {
+  constructor(maxNrInp, maxNrOutp) {
   	partIdGlobal++;
   	this.id = partIdGlobal;
   	this.inputParts = [];
   	this.outputParts = [];
   	this.enabled = false;
   	this.maxNrInputs = maxNrInp;
+  	this.maxNrOutputs = maxNrOutp;
   };
 
 //methods
