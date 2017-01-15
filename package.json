@@ -4,16 +4,34 @@
   "description": "The pipeline flow network designer application.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec --compilers js:babel-register "
   },
   "repository": {
     "type": "git",
     "url": "\u001b[A\u001b[B\u001b[C\u001b[Dhttps://github.com/AtanasNaydenov/PumpThatPipe.git"
   },
+  "babel": {
+    "presets": [
+      "env",
+      "es2015"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-polyfill": "^6.20.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-register": "^6.18.0",
     "gulp": "^3.9.1",
     "gulp-inject": "^4.2.0"
+  },
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-polyfill": "^6.20.0",
+    "chai": "^3.5.0",
+    "express": "^4.14.0",
+    "mocha": "^3.2.0",
+    "request": "^2.79.0"
   }
 }

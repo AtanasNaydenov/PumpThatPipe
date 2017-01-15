@@ -28,6 +28,18 @@ let ProgramStateEnum = {
     }
 }
 
+// adding a method contains to every array
+Array.prototype.contains = function(obj) {
+    var i = this.length;
+    while (i--) {
+        if (this[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
 
 class MasterCtrl {
 
@@ -282,7 +294,7 @@ class MasterCtrl {
         // requires checking whether such transition can hold
         if (ProgramState
             .transitions[(int)(this.ProgramState)] // current program state
-            .linkedTo.contains((int)(progState))) { // has a transition to desired state
+                .linkedTo.contains((int)(progState))) { // has a transition to desired state
 
             this.ProgramState = progState; // then this transition takes place
             if (this.ProgramState == ProgramStateEnum.IDLE) {
@@ -297,3 +309,4 @@ class MasterCtrl {
         return false;
     }
 }
+
