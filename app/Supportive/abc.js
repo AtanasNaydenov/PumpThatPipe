@@ -1,4 +1,4 @@
-class Person {
+export class Person {
     constructor(age){
         this.Age = age;
         this.Pet = {};
@@ -7,20 +7,21 @@ class Person {
         return this.Age + age;
     }
     setPet(pet){
-        this.Pet = pet
+        this.Pet = pet;
     }
 }
 
-class Dog {
+export class Dog {
     constructor(age){
         this.Age = age;
     }
     olderBy(age){
         return this.Age + age;
     }
+    getOlder(age){
+        this.Age += age;
+        return this.Age;
+    }
 }
 
 
-
-
-module.exports = Person, Dog;
