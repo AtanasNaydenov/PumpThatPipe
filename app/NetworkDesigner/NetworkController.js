@@ -30,8 +30,8 @@ class NetworkController {
     // Checks the if the x and y coordinates are available for placing smthng
     // returns a boolean result
     isDrawable(x, y) {
-        for(let i = 0; i<this.Parts.length;i++){
-            if(this.Parts[i].Contains(x,y)){
+        for (let i = 0; i < this.Parts.length; i++) {
+            if (this.Parts[i].Contains(x, y)) {
                 return false; // not drawable!
             }
         }
@@ -49,8 +49,17 @@ class NetworkController {
         return false;
     }
 
-    // ???
+    // recalculates the 
     updateNetwork() {
+
+        let _sources = [];
+        _sources = this.getPumps();
+
+        for (let i = 0; i < _sources.length; i++) {
+            _sources[i]
+        }
+
+
 
     }
 
@@ -64,19 +73,27 @@ class NetworkController {
     remove(part, isPipeline) {
         let _removeResult = false;
 
-        if (!(part instanceof Component() 
-            || part instanceof Pipeline())){
-                // neither a component or a pipeline - aaaargh, wrong-wrong-wrong.
-                return false;
-            }
+        if (!(part instanceof Component()
+            || part instanceof Pipeline())) {
+            // neither a component or a pipeline - aaaargh, wrong-wrong-wrong.
+            return false;
+        }
         // at least one of those
         if (!isPipeline) {
             try { // try enables skipping the check for being a component by just assuming it is
-                _listOfPLtoDelete = part.RemoveAllPipelines();
-                //
-                if (_listOfPLtoDelete.length > 0) {
-                    for (let i = 0; i < _listOfPLtoDelete.length; i++) {
-                        this.removeFromList(_listOfPLtoDelete[i]);
+                let _listOfPLOutAndIn = part.RemoveAllPipelines(); //`returns {}.
+                ``
+                let _listOfPLMerged = _listOfPLOutAndIn.outputParts;
+                _listOfPLMerged.push(_listOfPLOutAndIn.inputParts);
+
+                for (let i = 0; i < _listOfPLOutAndIn.outputParts.length; i++) {
+                    updateConnections(_listOfPLOutAndIn.outputParts[i].outputParts[0]);
+                }
+
+                // removing all those pipelines from the list
+                if (_listOfPLMerged.length > 0) {
+                    for (let i = 0; i < _listOfPLMerged.length; i++) {
+                        this.removeFromList(_listOfPLMerged[i]);
                     }
                 }
                 _removeResult = this.removeFromList(part); // maybe something goes wrong, huh?
@@ -87,20 +104,20 @@ class NetworkController {
         } else {
 
             // actually the pipeline is to be deleted
-            if(part instanceof Pipeline()){ // just to be sure
+            if (part instanceof Pipeline()) { // just to be sure
                 let detachResult = part.Detach();
                 _removeResult = this.removeFromList(part);
 
-            }else{
+            } else {
 
                 console.log('tried to delete not a pipeiple as if it was a pipeline...');
                 _removeResult = false;
             }
         }
-        
-        if(_removeResult){
+
+        if (_removeResult) {
             this.updateNetwork
-        }      
+        }
         return _removeResult;
     }
 
@@ -175,4 +192,35 @@ class NetworkController {
         }
         return _comp;
     }
+
+
+    // additional methods 
+    // used to make life easier
+    // returns the array of pumps
+    getPumps() {
+        _pumps = [];
+        for (let i = 0; i < this.Parts.length; i++) {
+            if (this.Parts[i] instanceof Pump()) {
+                _pumps.push(this.Parts[i]);
+            }
+        }
+        return _pumps;
+    }
+
+    updateConnections(part) {
+        if (part instanceof Pipeline()) {
+            part.UdpdateFlow(part.Inputs[0].GetOutFlow());
+            return updateConnections(part.outputParts[0]);
+        } else {
+            // assuming component
+            part.CurrentAmount = part.GetInflow();
+            for (let i = 0; i < part.outputParts.len; i++) {
+                return updateConnections(part.outputParts[i]);
+            }
+            // safely return a blocking result
+            return 'halted';
+        }
+    }
+
+
 }

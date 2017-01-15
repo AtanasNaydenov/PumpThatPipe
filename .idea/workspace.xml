@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d06b76a6-aa9a-420c-b25e-fb74bec9fc4a" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/NetworkDesigner/UnitTestND.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/NetworkDesigner/testingEnvironment.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/NetworkDesigner/Components/Component.js" afterPath="$PROJECT_DIR$/app/NetworkDesigner/Components/Component.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/NetworkDesigner/Components/Pipeline.js" afterPath="$PROJECT_DIR$/app/NetworkDesigner/Components/Pipeline.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/NetworkDesigner/NetworkController.js" afterPath="$PROJECT_DIR$/app/NetworkDesigner/NetworkController.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,10 +24,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="Part.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Part.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Part.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="175">
+            <state relative-caret-position="169">
               <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
               <folding />
             </state>
@@ -42,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Pipeline.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Pipeline.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Pipeline.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="60" column="12" lean-forward="true" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
+            <state relative-caret-position="225">
+              <caret line="55" column="27" lean-forward="true" selection-start-line="55" selection-start-column="27" selection-end-line="55" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -55,7 +57,7 @@
       <file leaf-file-name="Component.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Component.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1725">
+            <state relative-caret-position="144">
               <caret line="69" column="18" lean-forward="false" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
               <folding />
             </state>
@@ -75,7 +77,7 @@
       <file leaf-file-name="Pump.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Pump.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="700">
+            <state relative-caret-position="419">
               <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="17" />
               <folding />
             </state>
@@ -261,12 +263,12 @@
       <workItem from="1484173877504" duration="17420000" />
       <workItem from="1484354972233" duration="456000" />
       <workItem from="1484426432487" duration="6436000" />
-      <workItem from="1484439262137" duration="127000" />
+      <workItem from="1484439262137" duration="275000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29412000" />
+    <option name="totallyTimeSpent" value="29560000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -494,22 +496,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Adjustable Splitter.js" />
-    <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Splitter.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="125">
-          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Part.js">
+    <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Adjustable Splitter.js" />
+    <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Pipeline.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="175">
-          <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+        <state relative-caret-position="225">
+          <caret line="55" column="27" lean-forward="true" selection-start-line="55" selection-start-column="27" selection-end-line="55" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Component.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="69" column="18" lean-forward="false" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
           <folding />
         </state>
       </provider>
@@ -524,7 +527,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Pump.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="700">
+        <state relative-caret-position="419">
           <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="17" />
           <folding />
         </state>
@@ -538,18 +541,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Component.js">
+    <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Splitter.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1725">
-          <caret line="69" column="18" lean-forward="false" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+        <state relative-caret-position="125">
+          <caret line="5" column="23" lean-forward="false" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Pipeline.js">
+    <entry file="file://$PROJECT_DIR$/app/NetworkDesigner/Components/Part.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="60" column="12" lean-forward="true" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
+        <state relative-caret-position="169">
+          <caret line="7" column="21" lean-forward="false" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
           <folding />
         </state>
       </provider>
