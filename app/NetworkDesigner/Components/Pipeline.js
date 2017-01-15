@@ -22,7 +22,7 @@ class Pipeline extends Part
     }
 
     UpdateState(){
-        if(this.currentflow>this.maxflow)
+        if(this.currentflow>this.maxflow)   
             this.state=Pipe_states.URGENT;
         else
             if(this.currentflow>0.8*this.maxflow && this.currentflow<this.maxflow)
@@ -45,7 +45,7 @@ class Pipeline extends Part
             return true;
         }
         else
-            return false;
+            return false; 
         this.UpdateState();
     }
     GetStartingComponent(){
