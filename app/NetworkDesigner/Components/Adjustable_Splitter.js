@@ -3,9 +3,10 @@ import {Splitter} from "./Splitter";
 
 class AdjustableSplitter extends Splitter
 {
-    constructor(maxNrInp,currentamount,percentage)
+    constructor(currentamount,percentage)
     {
-        super(maxNr,currentamoun,percentage);
+        super(currentamount);
+        this.percentage = percentage;
     }
     SetPercentage(perc)
     {

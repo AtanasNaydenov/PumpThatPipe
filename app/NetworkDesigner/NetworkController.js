@@ -179,7 +179,7 @@ class NetworkController {
     // void
     setNewMaximumPipelineFlow(flowAmount) {
         // would it work? 
-        Pipeline.SetMaxflow(flowAmount);
+        Pipeline.LocSetMaxflow(flowAmount);
     }
 
     detectComponent(x, y) {

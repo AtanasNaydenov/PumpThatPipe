@@ -6,34 +6,35 @@ function SetMaxflow(maxfl) {
 }
 //The Pipe_states enumeration
 const Pipe_states = {
-    SAFE: 'SAFE',
-    ALERTED: 'ALERTED',
-    WARNING: 'WARNING',
-    URGENT: 'URGENT'
+    SAFE: 'SAFE', // current_amount < 50% of maxflow
+    ALERTED: 'ALERTED', // current_amount in 50% - 80% of maxflow
+    WARNING: 'WARNING', // current_amount in 80% - 100% of maxflow
+    URGENT: 'URGENT' // current_amount > 100% of maxflow
 };
 
 class Pipeline extends Part {
-    constructor(maxNrInp, curflow) {
-        super(maxNrInp); // this is constantly 1,1
+    constructor(curflow) {
+        super(1, 1); // this is constantly 1,1
         this.currentflow = curflow;
-        SetMaxflow();
+        // Pipeline.LocSetMaxflow(); -> this is not supposed to be here
         this.UpdateState();
     }
 
     UpdateState() {
-        if (this.currentflow > this.maxflow)
+        if (this.currentflow > this.maxFlow) // the problem was here - now we use the camelcase to refer to PL.maxFlow
             this.state = Pipe_states.URGENT;
         else
-            if (this.currentflow > 0.8 * this.maxflow && this.currentflow < this.maxflow)
+            if (this.currentflow > 0.8 * this.maxFlow && this.currentflow <= this.maxFlow) // this.currentflow <= this.maxflow otherwise if cur = max it's considered safe
                 this.state = Pipe_states.WARNING;
             else
-                if (this.currentflow > 0.5 * this.maxflow && this.currentflow < 0.8 * this.maxflow)
+                if (this.currentflow > 0.5 * this.maxFlow && this.currentflow <= 0.8 * this.maxFlow)
                     this.state = Pipe_states.ALERTED;
                 else
                     this.state = Pipe_states.SAFE;
     }
     // needs to check if the component is really a component
     SetStartingComponent(component) {
+        //checks for whether it is possible to add should be done prior to this method call
         this.inputParts.push(component);
     }
     SetEndComponent(component) {
@@ -44,35 +45,53 @@ class Pipeline extends Part {
         this.UpdateState();
     }
     GetStartingComponent() {
-        return outputParts[0];
+        return this.inputParts[0]; // this is an input
     }
     GetEndComponent() {
-        return inputParts[0];
+        return this.outputParts[0];
     }
     Detach() {
-        updateConnections(this.outputParts[0]);
+        this.updateConnections(this.outputParts[0]);
 
         this.outputParts = [];
         this.inputParts = [];
     }
 
     updateConnections(part) {
-        if (part instanceof Pipeline()) {
-            part.UdpdateFlow(part.Inputs[0].GetOutFlow());
-            return updateConnections(part.outputParts[0]);
-        } else {
-            // assuming component
-            part.CurrentAmount = part.GetInflow();
-            for (let i = 0; i < part.outputParts.len; i++) {
-                return updateConnections(part.outputParts[i]);
+        try { // It's easier to ask forgiveness than it is to get permission.
+            if (part instanceof Pipeline) {
+                part.UdpdateFlow(part.Inputs[0].GetOutFlow());
+                return updateConnections(part.outputParts[0]);
+            } else {
+                // assuming component
+                part.CurrentAmount = part.GetInflow();
+                for (let i = 0; i < part.outputParts.len; i++) {
+                    return updateConnections(part.outputParts[i]);
+                }
+                // safely return a blocking result
+                return 'halted';
             }
-            // safely return a blocking result
-            return 'halted';
+        }catch(e){
+            return [e,"excpetion"];
         }
+        
     }
 
-    static SetMaxflow(maxfl) {
+    // added those methods to for an ~easy~ (yeah, sure...) workaround 
+    // this works like global SetMaxflow method - which is not very nice to have, 
+    // as the name can be confused with smthng else
+    static LocSetMaxflow(maxfl) {
         Pipeline.maxflow = maxfl;
+    }
+    // same as LocSetMaxflow, but through a setter
+    set maxFlow(maxfl) {
+        Pipeline.maxflow = maxfl;
+    }
+    // this getter allows the pipeline to access it's property of maximum flow like:
+    // _pl.maxFlow
+    // it will return the global setting for a PipeLine
+    get maxFlow() {
+        return Pipeline.maxflow;
     }
 
     Swap() { }

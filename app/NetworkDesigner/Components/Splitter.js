@@ -2,10 +2,11 @@ import {Component} from "./Component";
 
 class Splitter extends Component
 {
-    constructor(maxNrInp,currentamount,percentage)
+    
+    constructor(currentamount)
     {
-        super(maxNrInp,currentamount);
-        this.percentage=percentage;
+        super(1,2,currentamount); // splitters acccept 1 input and 2 outputs
+        this.percentage=50; // splitters get 50 percent by default
     }
 }
 

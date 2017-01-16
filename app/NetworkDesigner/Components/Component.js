@@ -11,8 +11,8 @@ function Dimensions(x,y)
 
 class Component extends Part {
 
-    constructor(maxNrInp,currentamount) {
-        super(maxNrInp);
+    constructor(maxNrInp,maxNrOutp,currentamount) {
+        super(maxNrInp,maxNrOutp);
         this.currentAmount = currentamount ;
     }
 
@@ -51,18 +51,18 @@ class Component extends Part {
         for(let i=0;i<outputParts.length;i++)
             if(outputParts[i].id==pipeline.id)
             {
-                inputParts.splice(i,1);
+                this.inputParts.splice(i,1);
                 break;
             }
 
     }
     AddInput(pipeline)
     {
-        inputParts.push(pipeline);
+        this.inputParts.push(pipeline);
     }
     AddOutput(pipeline)
     {
-        outputParts.push(pipeline);
+        this.outputParts.push(pipeline);
     }
 
     RemovePipelines()
