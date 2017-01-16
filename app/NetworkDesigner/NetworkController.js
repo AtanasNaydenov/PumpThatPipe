@@ -1,4 +1,13 @@
 //for network processes
+import { Part } from "./Components/Part";
+import { Pipeline, SetMaxflow, Pipe_states } from "./Components/Pipeline";
+import { Component } from "./Components/Component";
+import { Splitter } from "./Components/Splitter";
+import { AdjustableSplitter } from "./Components/Adjustable_Splitter";
+import { Merger } from "./Components/Merger";
+import { Pump } from "./Components/Pump";
+
+
 
 let NCCounter_FigGlobal = 0; // global variables are bad, but not having static members is worse 
 class NetworkController {
@@ -9,8 +18,8 @@ class NetworkController {
     }
 
     constructor() {
-        this.Name = newName();
-        this.Id = _counter;
+        this.Name = NetworkController.makeNewName();
+        this.Id = NCCounter_FigGlobal;
         this.SelectedTemplatePart = {};
         this.SelectedExistingPart = {};
         this.Parts = [];
@@ -66,7 +75,17 @@ class NetworkController {
     // updates the global settings of the NC 
     modifyGlobalSettings(settings) {
         //TO DO
-        return false;
+        let _modSettings = {};
+        console.dir(settings);
+        if (settings.hasOwnProperty('_newPipelineMaxFlow')) {
+            this.setNewMaximumPipelineFlow(settings._newPipelineMaxFlow);
+            _modSettings.plMaxFlowChanged = true;
+        }
+        if (settings.hasOwnProperty('_newPumpMaxFlow')) {
+            Pump.SetMaximumFlow(settings._newPumpMaxFlow);
+            _modSettings.pMaxFlowChanged = true;
+        }
+        return _modSettings;
     }
 
     // attempts to remove a given component 
@@ -224,3 +243,5 @@ class NetworkController {
 
 
 }
+
+export { NetworkController, NCCounter_FigGlobal }

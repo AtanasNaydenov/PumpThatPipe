@@ -1,3 +1,5 @@
+import {Part} from "./Part";
+
 function Dimensions(x,y)
 {
     this.x=x;
@@ -82,4 +84,4 @@ class Component extends Part {
     }
 }
 
-
+export {Dimensions, Component};

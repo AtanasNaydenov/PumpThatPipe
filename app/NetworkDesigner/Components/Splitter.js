@@ -1,3 +1,5 @@
+import {Component} from "./Component";
+
 class Splitter extends Component
 {
     constructor(maxNrInp,currentamount,percentage)
@@ -6,3 +8,5 @@ class Splitter extends Component
         this.percentage=percentage;
     }
 }
+
+export {Splitter};

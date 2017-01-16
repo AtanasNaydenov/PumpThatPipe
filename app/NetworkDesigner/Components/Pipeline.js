@@ -1,7 +1,8 @@
 //Setting the static variable maxflow of all pipelines
-function SetMaxflow(maxfl)
-{
-    Pipeline.maxflow=maxfl;
+import { Part } from "./Part";
+
+function SetMaxflow(maxfl) {
+    Pipeline.maxflow = maxfl;
 }
 //The Pipe_states enumeration
 const Pipe_states = {
@@ -11,49 +12,48 @@ const Pipe_states = {
     URGENT: 'URGENT'
 };
 
-class Pipeline extends Part
-{
-    constructor(maxNrInp,curflow)
-    {
-        super(maxNrInp);
-        this.currentflow=curflow;
+class Pipeline extends Part {
+    constructor(maxNrInp, curflow) {
+        super(maxNrInp); // this is constantly 1,1
+        this.currentflow = curflow;
         SetMaxflow();
         this.UpdateState();
     }
 
-    UpdateState(){
-        if(this.currentflow>this.maxflow)   
-            this.state=Pipe_states.URGENT;
+    UpdateState() {
+        if (this.currentflow > this.maxflow)
+            this.state = Pipe_states.URGENT;
         else
-            if(this.currentflow>0.8*this.maxflow && this.currentflow<this.maxflow)
-                this.state=Pipe_states.WARNING;
+            if (this.currentflow > 0.8 * this.maxflow && this.currentflow < this.maxflow)
+                this.state = Pipe_states.WARNING;
             else
-                if(this.currentflow>0.5*this.maxflow && this.currentflow<0.8*this.maxflow)
-                    this.state=Pipe_states.ALERTED;
-            else
-                this.state=Pipe_states.SAFE;
+                if (this.currentflow > 0.5 * this.maxflow && this.currentflow < 0.8 * this.maxflow)
+                    this.state = Pipe_states.ALERTED;
+                else
+                    this.state = Pipe_states.SAFE;
     }
-    SetStartingComponent(component){
+    // needs to check if the component is really a component
+    SetStartingComponent(component) {
         this.inputParts.push(component);
     }
-    SetEndComponent(component){
+    SetEndComponent(component) {
         this.outputParts.push(component);
     }
-    UpdateFlow(flow){
+    UpdateFlow(flow) {
         this.currentflow = flow;
         this.UpdateState();
     }
-    GetStartingComponent(){
+    GetStartingComponent() {
         return outputParts[0];
     }
-    GetEndComponent(){
+    GetEndComponent() {
         return inputParts[0];
     }
-    Detach(){
+    Detach() {
         updateConnections(this.outputParts[0]);
 
-        this.outputParts=[];
-        this.inputParts=[];
+        this.outputParts = [];
+        this.inputParts = [];
     }
 
     updateConnections(part) {
@@ -71,9 +71,15 @@ class Pipeline extends Part
         }
     }
 
-    Swap(){}
+    static SetMaxflow(maxfl) {
+        Pipeline.maxflow = maxfl;
+    }
 
-    Contains(x,y){
+    Swap() { }
+
+    Contains(x, y) {
 
     }
 }
+
+export { SetMaxflow, Pipeline, Pipe_states };

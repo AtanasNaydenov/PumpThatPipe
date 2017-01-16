@@ -1,4 +1,4 @@
-export class Person {
+class Person {
     constructor(age){
         this.Age = age;
         this.Pet = {};
@@ -11,7 +11,7 @@ export class Person {
     }
 }
 
-export class Dog {
+class Dog {
     constructor(age){
         this.Age = age;
     }
@@ -25,3 +25,4 @@ export class Dog {
 }
 
 
+export {Person, Dog};

@@ -1,3 +1,6 @@
+// we should change the name of this file to be with an underscore
+import {Splitter} from "./Splitter";
+
 class AdjustableSplitter extends Splitter
 {
     constructor(maxNrInp,currentamount,percentage)
@@ -11,3 +14,5 @@ class AdjustableSplitter extends Splitter
         outputParts[1].UpdateFlow(0.7*inflow);
     }
 }
+
+export {AdjustableSplitter};

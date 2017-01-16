@@ -1,3 +1,5 @@
+import {Component} from "./Component";
+
 class Pump extends Component{
     constructor(maxNrInp,currentamount) {
         super(maxNrInp,currentamount);
@@ -11,7 +13,7 @@ class Pump extends Component{
             return false;
         }
     }
-    SetMaximumFlow(x){
+    static SetMaximumFlow(x){
         Pump.maxFlow = x;
     }
     GetMaximumFlow(){
@@ -28,3 +30,4 @@ class Pump extends Component{
 }
 Pump.maxFlow = 0;
 
+export {Pump}
