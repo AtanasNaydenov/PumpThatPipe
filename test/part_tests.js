@@ -280,11 +280,11 @@ describe("Testing part methods separately", function () {
                 });
                 it("connected Components detaching (0 inflows)", function () {
                     // this time components are also connected via AddInput|Output method
-                    let _sp = new Splitter();
+                    let _p = new Pump(40);
                     let _sk = new Sink();
                     let _pl = new Pipeline();
 
-                    _pl.SetStartingComponent(_sp);
+                    _pl.SetStartingComponent(_p);
                     _pl.SetEndComponent(_sk);
 
                     _p.AddOutput(_pl);
@@ -302,15 +302,22 @@ describe("Testing part methods separately", function () {
                     let _p = new Pump(50);
                     _p.SetLocation(10, 30);
 
-                    _pDimensions = _p.location;
+                    let _pDimensions = _p.location;
                     expect(_pDimensions).to.have.property('x', 10);
                     expect(_pDimensions).to.have.property('y', 30);
                     // just for testing, should probably be better set to something retrievable 
                     expect(_pDimensions).to.have.property('width', 2);
                     expect(_pDimensions).to.have.property('height', 3);
-                    expect(_pDimensions).to.have.property('marg ', 4);
+                    expect(_pDimensions).to.have.property('margin', 4);
                 })
+                it("check the contains function for components",function(){
+                    let _p = new Pump(50);
+                    _p.SetLocation(10, 30);
 
+                    let _pDimensions = _p.location;
+                    let _containsResult = _p.Contains(11,31); // should be inside
+                    expect(_containResult).to.be.ok;
+                });
             });
             describe("Connecting", function () {
                 it("a Pump with a Sink", function () {

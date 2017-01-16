@@ -32,8 +32,18 @@ class NetworkController {
         if (_isDrawableResp) {
             // check if returns something
             this.SelectedTemplatePart.SetLocation(x, y);
+            addPartToList(this.SelectedTemplatePart);
         }
         return _isDrawableResp;
+    }
+
+    // to be used only when everything is alright
+    addPartToList(part){
+        if(part instanceof Part){
+            this.Parts.push(part);
+            return true;
+        }
+        return false;
     }
 
     // Checks the if the x and y coordinates are available for placing smthng
@@ -67,9 +77,6 @@ class NetworkController {
         for (let i = 0; i < _sources.length; i++) {
             _sources[i]
         }
-
-
-
     }
 
     // updates the global settings of the NC 
