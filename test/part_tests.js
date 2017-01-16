@@ -315,8 +315,8 @@ describe("Testing part methods separately", function () {
                     _p.SetLocation(10, 30);
 
                     let _pDimensions = _p.location;
-                    let _containsResult = _p.Contains(11,31); // should be inside
-                    expect(_containResult).to.be.ok;
+                    let _containsResult = _p.Contains(11,31); // the x and y should be inside 
+                    expect(_containsResult).to.be.ok;
                 });
             });
             describe("Connecting", function () {
