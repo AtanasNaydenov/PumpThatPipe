@@ -18,3 +18,5 @@ class Part {
 
   };
 }
+
+export {Part};

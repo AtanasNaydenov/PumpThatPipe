@@ -4,7 +4,7 @@ var expect = require("chai").expect;
 // let Dog = require("../app/Supportive/abc");
 import {Person, Dog} from "../app/Supportive/abc";
 
-describe("ABC Testing", function () {
+describe.skip("ABC Testing", function () {
     describe("New Person", function () {
         it("creates a variable with a new Person", function () {
             var a = new Person(15);
