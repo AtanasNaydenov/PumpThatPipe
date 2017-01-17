@@ -264,6 +264,9 @@ describe("Testing part methods separately", function () {
                         _pl.SetStartingComponent(_p);
                         _pl.SetEndComponent(_sk);
 
+                        _p.AddOutput(_pl);
+                        _sk.AddInput(_pl);
+
                         expect(_pl).to.have.property("currentflow", 10); // <- PROBLEM : got undefined
                     });
                 });
@@ -274,6 +277,8 @@ describe("Testing part methods separately", function () {
 
                     _pl.SetStartingComponent(_sp);
                     _pl.SetEndComponent(_sk);
+                    _sp.AddOutput(_pl);
+                    _sk.AddInput(_pl);
 
                     _pl.Detach();
                     expect(_pl.outputParts).to.deep.equal([]);
@@ -291,8 +296,9 @@ describe("Testing part methods separately", function () {
                     _p.AddOutput(_pl);
                     _sk.AddInput(_pl);
 
-                    let _sinkInflow = _sk.GetInflow();
                     _pl.Detach();
+                    let _sinkInflow = _sk.GetInflow();
+                    
                     expect(_sinkInflow).to.equal(0);
                 });
             });
@@ -409,14 +415,14 @@ describe("Testing part methods separately", function () {
                     let retSink2Inflow = _sks[0].GetInflow();
 
                     expect(retSink1Inflow).to.be.equal(25); // <- PROBLEM : got NaN
-                    expect(retSink2Inflow).to.be.equal(25);
+                    expect(retSink2Inflow).to.be.equal(25); // to fix : redefine the get outflow of the splitter...
                 });
                 it("add 3 pipelines to splitter's outs, expect 2",function(){
                     let _sp = new Splitter();
                     for(let i = 0; i<3;i++){
                         _sp.AddOutput(new Pipeline());
                     }
-                    let _nrOuts = _sp.outputparts.length;
+                    let _nrOuts = _sp.outputParts.length;
                     expect(_nrOuts).to.equal(2);
                 })
             });

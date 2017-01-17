@@ -47,20 +47,30 @@ class Component extends Part {
         return sum;
     }
     RemoveInput(pipeline) {
-        for (let i = 0; i < this.inputParts.length; i++)
+        for (let i = 0; i < this.inputParts.length; i++){
             if (this.inputParts[i].id == pipeline.id) {
                 this.inputParts.splice(i, 1);
                 break;
             }
-
+        }
     }
     RemoveOutput(pipeline) {
-        for (let i = 0; i < outputParts.length; i++)
-            if (outputParts[i].id == pipeline.id) {
-                this.inputParts.splice(i, 1);
-                break;
+        console.log("part to remove: ");
+        console.dir(pipeline);
+        console.log("this outputParts");
+        console.log(this.outputParts.length);
+        for (let i = 0; i < this.outputParts.length; i++)
+        { 
+            // console.log(this.outputParts[i].id);
+            // console.log(this.pipeline.id);
+            console.log(i);
+            if (this.outputParts[i].id === pipeline.id) {
+                
+                this.outputParts.splice(i, 1);
+                return true;
             }
-
+        }
+        return false;
     }
     AddInput(pipeline) {
         // console.log("addInput parameter:")

@@ -51,6 +51,16 @@ class Pipeline extends Part {
         return this.outputParts[0];
     }
     Detach() {
+        
+        console.log(this.StartComponent.RemoveOutput(this));
+        // console.log("sc")
+        // console.log(this.StartComponent);
+        // console.log(_remRes);
+        // console.log("ec");
+        // console.log(this.EndComponent);
+        this.EndComponent.RemoveInput(this);
+        console.log("this");  
+        console.log(this);      
         this.updateConnections(this.outputParts[0]);
 
         this.outputParts = [];
