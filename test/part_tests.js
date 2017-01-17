@@ -87,7 +87,8 @@ describe("Testing part methods separately", function () {
         });
 
         it("creates a pump object with current amount = x", function () {
-            let _contents = 80; // assume x = 80
+            let _contents = 80; 
+            Pump.SetMaximumFlow(_contents+10);// assume x = 80
             let _p = new Pump(_contents);
 
             expect(_p).to.be.an.instanceof(Pump);
@@ -297,18 +298,18 @@ describe("Testing part methods separately", function () {
             });
         });
         describe("Components functionality", function () {
-            describe("Setting locations", function () {
-                it("x:= 10; y:=30; componentType = PUMP", function () {
+            describe("Location management testing", function () {
+                it("Set location x:= 10; y:=30; for a PUMP", function () {
                     let _p = new Pump(50);
                     _p.SetLocation(10, 30);
 
                     let _pDimensions = _p.location;
-                    expect(_pDimensions).to.have.property('x', 10);
-                    expect(_pDimensions).to.have.property('y', 30);
+                    expect(_pDimensions).to.have.property('X', 10);
+                    expect(_pDimensions).to.have.property('Y', 30);
                     // just for testing, should probably be better set to something retrievable 
-                    expect(_pDimensions).to.have.property('width', 2);
-                    expect(_pDimensions).to.have.property('height', 3);
-                    expect(_pDimensions).to.have.property('margin', 4);
+                    expect(_pDimensions).to.have.property('Width', 10);
+                    expect(_pDimensions).to.have.property('Height', 10);
+                    expect(_pDimensions).to.have.property('Margin', 2);
                 })
                 it("check the contains function for components",function(){
                     let _p = new Pump(50);

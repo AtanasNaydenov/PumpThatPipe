@@ -32,14 +32,16 @@ class NetworkController {
         if (_isDrawableResp) {
             // check if returns something
             this.SelectedTemplatePart.SetLocation(x, y);
-            addPartToList(this.SelectedTemplatePart);
+            this.addPartToList(this.SelectedTemplatePart);
+            this.SelectedTemplatePart = {};
+            console.dir(this.SelectedTemplatePart);
         }
         return _isDrawableResp;
     }
 
     // to be used only when everything is alright
-    addPartToList(part){
-        if(part instanceof Part){
+    addPartToList(part) {
+        if (part instanceof Part) {
             this.Parts.push(part);
             return true;
         }
@@ -63,6 +65,11 @@ class NetworkController {
         if (comp1.AddOutput(this.SelectedTemplatePart) &&
             comp2.AddInput(this.SelectedTemplatePart)) {
             console.log("both connected components added");
+
+            this.addPartToList(this.SelectedTemplatePart);
+            this.SelectedTemplatePart = {};
+            console.log(this.Parts);
+            
             return true;
         }
         return false;
@@ -99,8 +106,8 @@ class NetworkController {
     remove(part, isPipeline) {
         let _removeResult = false;
 
-        if (!(part instanceof Component()
-            || part instanceof Pipeline())) {
+        if (!(part instanceof Component
+            || part instanceof Pipeline)) {
             // neither a component or a pipeline - aaaargh, wrong-wrong-wrong.
             return false;
         }
@@ -130,7 +137,7 @@ class NetworkController {
         } else {
 
             // actually the pipeline is to be deleted
-            if (part instanceof Pipeline()) { // just to be sure
+            if (part instanceof Pipeline) { // just to be sure
                 let detachResult = part.Detach();
                 _removeResult = this.removeFromList(part);
 
@@ -190,11 +197,12 @@ class NetworkController {
     }
 
     detectComponent(x, y) {
-        _comp = {};
+        let _comp = {};
         for (let i = 0; i < this.Parts.length; i++) {
             console.log(this.Parts[i].constructor.name);
 
-            if (this.Parts[i] instanceof Component() && this.Parts[i].Contains(x, y)) {
+            if (this.Parts[i] instanceof Component 
+                && this.Parts[i].Contains(x, y)) {
                 console.log("found a component here");
                 _comp = this.Parts[i];
                 console.dir(_comp);
@@ -226,7 +234,7 @@ class NetworkController {
     getPumps() {
         _pumps = [];
         for (let i = 0; i < this.Parts.length; i++) {
-            if (this.Parts[i] instanceof Pump()) {
+            if (this.Parts[i] instanceof Pump) {
                 _pumps.push(this.Parts[i]);
             }
         }
@@ -234,7 +242,7 @@ class NetworkController {
     }
 
     updateConnections(part) {
-        if (part instanceof Pipeline()) {
+        if (part instanceof Pipeline) {
             part.UdpdateFlow(part.Inputs[0].GetOutFlow());
             return updateConnections(part.outputParts[0]);
         } else {
