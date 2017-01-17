@@ -1,0 +1,151 @@
+.canvas {
+    width: 100%;
+    height: 100%;
+
+}
+
+body{
+    --area-from-top: 80px;
+    --area-on-right: 15%;
+    margin: 0;
+    padding: 0;
+}
+
+/*Component area*/
+.componentsBar {
+    background-color: #1f1f1f;
+    position: fixed;
+    width: inherit;
+    height: var(--area-from-top);
+    display: inline;
+}
+
+
+.componentButtons {
+    height: 50px;
+    width: 35%;
+    top: 15px;
+    left: 3%;
+    position: absolute;
+    float:left;
+}
+
+.componentButtons input[type=image] {
+    padding: 0.5%;
+    margin-left: 0.5%;
+    margin-right: 0.5%;
+    width: 50px;
+    height: 50px;
+
+}
+
+.componentButtons input[type=image]:hover {
+    border: 1px solid salmon;
+}
+
+.componentIntroduction{
+    position: absolute;
+    margin-left: 38%;
+}
+
+.componentsBar .componentIntroduction h2,.componentsBar .componentIntroduction p {
+    color: lightsalmon;
+    font-family: Arial;
+    line-height:80%;
+    margin-bottom: 0.5%;
+}
+
+
+/*Options Area*/
+* {
+    box-sizing: border-box;
+}
+
+.optionsBar{
+    background-color: #1f1f1f;
+    position: fixed;
+    width: var(--area-on-right);
+    height: 150%;
+    right:0;
+    clear: both;
+}
+
+.actionButtons {
+    top:var(--area-from-top);
+    width: 100%;
+    height: 400px;
+    position: absolute;
+    border-bottom: 1px solid gray;
+}
+
+.actionButton input[type=button]{
+    width: 100%;
+    font-size: 120%;
+    color: salmon;
+    border: 1px solid #1f1f1f;
+    background-color: #0e0e0e;
+}
+
+.actionButton input[type=button]:hover{
+    border: 1px solid salmon;
+}
+
+.optionsBar  p, h4, h3 {
+    color: #ffecde;
+    font-family: Arial;
+    font-weight: 100;
+}
+
+.selectedCompOptions {
+    padding: 5%;
+    position: static;
+}
+
+
+#custom-handle {
+    width: 35px;
+    height: 25px;
+    text-align: center;
+    line-height: 1.6em;
+    background-color: lightsalmon;
+    border: none;
+}
+
+#slider {
+    width: 70%;
+    top: 20px;
+    left: 10%;
+}
+
+.selectedCompOptions input[type=button]{
+    position: static;
+    margin-top:20%;
+    color: #1f1f1f;
+    background-color: lightsalmon;
+    border: none;
+    float: right;
+    height: 30px;
+    width: 35%;
+}
+
+.globalSettings {
+    padding-top: 480px;
+    padding-left: 5%;
+    position: absolute;
+}
+
+.globalSettings #spinner {
+    width: 25px;
+    height: 20px;
+}
+
+/*drawing area*/
+
+.drawingArea {
+    position: fixed; /*absolute to scroll*/
+    width: 85%;
+    height: 100%;
+    top: var(--area-from-top);
+    background-color: lightgrey;
+
+}

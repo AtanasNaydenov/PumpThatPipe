@@ -70,8 +70,10 @@ class Pipeline extends Part
             return 'halted';
         }
     }
+    //TO DO
+    Swap(){
 
-    Swap(){}
+    }
 
     Contains(x,y){
 

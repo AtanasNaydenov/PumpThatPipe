@@ -1,0 +1,74 @@
+<!-- The main (or maybe the only) 'page' -->
+<!-- to start - this stuff's used: https://www.npmjs.com/package/http-server -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <title>Pump that pipe</title>
+    <link rel="stylesheet" href="design.css">
+</head>
+<body onload="init()">
+<div class="canvas" >
+    <div class="componentsBar" style="z-index: 11;">
+
+
+       <!-- <h3>Pump that pipe</h3>-->
+        <div id="palette" class="componentButtons"></div>
+
+        <div class="componentIntroduction">
+            <h2 id="comName"></h2>
+            <p id="comIntro"></p>
+        </div>
+    </div>
+
+    <div class="optionsBar" style="z-index: 12;">
+        <div class="actionButtons">
+            <div class="actionButton"><input id="saveModel" type="button" value="Save" onclick="save()"/></div>
+            <div class="actionButton"><input type="button" value="Open" onclick="load()"/></div>
+            <div class="actionButton"><input type="button" value="New" onclick=""/></div>
+           <div class="selectedCompOptions">
+            <h4 id="selectedCaption">CURRENTLY SELECTED:</h4>
+            <h3 id="selectedName">ADJUSTABLE SPLITTER</h3>
+            <br>
+            <p id="selectedOption1">Upper outflow:</p>
+               <div id="slider">
+                   <div id="custom-handle" class="ui-slider-handle"></div>
+               </div>
+             <p id="selectedOption2"></p>
+               <input id="deletebut" type="button" value="Delete"/>
+           </div>
+        </div><br>
+
+            <div class="globalSettings">
+                <h4>GLOBAL SETTINGS:</h4>
+                <p><label for="spinner">Adjust pipeline capacity <br>
+                    for the network:</label><br><br><input id="spinner" name="value"></p>
+
+            </div>
+    </div>
+    <div id="myDiagramDiv" class="drawingArea" style="z-index: 1;"></div>
+
+    <div>
+
+        <textarea id="mySavedModel" style="width:100%;height:200px">
+                    { "class": "go.GraphLinksModel",
+  "linkFromPortIdProperty": "fromPort",
+  "linkToPortIdProperty": "toPort",
+  "nodeDataArray": [],
+  "linkDataArray": []}
+                </textarea>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="interaction.js"></script>
+<script type="text/javascript" src="go.js"></script>
+
+</body>
+</html>
+
