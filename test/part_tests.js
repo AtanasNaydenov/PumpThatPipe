@@ -69,7 +69,7 @@ describe("Testing part methods separately", function () {
         it("creates an AdjustableSplitter object", function () {
             // should create the splitter with all the parameters initialized, 
             // no constr. parameters are needed.
-            let _s = new AdjustableSplitter(0, 70); // should every component really be initialized with 0 current amount?
+            let _s = new AdjustableSplitter(70); // should every component really be initialized with 0 current amount?
 
             expect(_s).to.be.an.instanceof(AdjustableSplitter);
             expect(_s).to.have.property("percentage", 70); // <- FIXED from here and below: 
@@ -83,12 +83,12 @@ describe("Testing part methods separately", function () {
 
             expect(_p).to.be.an.instanceof(Pump);
             expect(_p).to.have.property("maxNrInputs", 0); // <- FIXED from here and below
-            expect(_p).to.have.property("maxNrOutputs", -1); // -1 for infinite
+            expect(_p).to.have.property("maxNrOutputs", 1); // 1 output allowed
         });
 
         it("creates a pump object with current amount = x", function () {
-            let _contents = 80; 
-            Pump.SetMaximumFlow(_contents+10);// assume x = 80
+            let _contents = 80;
+            Pump.SetMaximumFlow(_contents + 10);// assume x = 80
             let _p = new Pump(_contents);
 
             expect(_p).to.be.an.instanceof(Pump);
@@ -112,8 +112,6 @@ describe("Testing part methods separately", function () {
             expect(_pl).to.have.property('currentflow', 8); // <- FIXED
             // please change the name to camelcase, pls 
         });
-
-
     });
 
     // FUNC
@@ -298,7 +296,7 @@ describe("Testing part methods separately", function () {
 
                     _pl.Detach();
                     let _sinkInflow = _sk.GetInflow();
-                    
+
                     expect(_sinkInflow).to.equal(0);
                 });
             });
@@ -317,12 +315,12 @@ describe("Testing part methods separately", function () {
                     expect(_pDimensions).to.have.property('Height', 10);
                     expect(_pDimensions).to.have.property('Margin', 2);
                 })
-                it("check the contains function for components",function(){
+                it("check the contains function for components", function () {
                     let _p = new Pump(50);
                     _p.SetLocation(10, 30);
 
                     let _pDimensions = _p.location;
-                    let _containsResult = _p.Contains(11,31); // the x and y should be inside 
+                    let _containsResult = _p.Contains(11, 31); // the x and y should be inside 
                     expect(_containsResult).to.be.ok;
                 });
             });
@@ -414,17 +412,83 @@ describe("Testing part methods separately", function () {
                     let retSink1Inflow = _sks[0].GetInflow();
                     let retSink2Inflow = _sks[0].GetInflow();
 
-                    expect(retSink1Inflow).to.be.equal(25); // <- PROBLEM : got NaN
+                    expect(retSink1Inflow).to.be.equal(25); // <- FIXED : got NaN
                     expect(retSink2Inflow).to.be.equal(25); // to fix : redefine the get outflow of the splitter...
                 });
-                it("add 3 pipelines to splitter's outs, expect 2",function(){
+                it("add 3 pipelines to splitter's outs, expect 2", function () {
                     let _sp = new Splitter();
-                    for(let i = 0; i<3;i++){
+                    for (let i = 0; i < 3; i++) {
                         _sp.AddOutput(new Pipeline());
                     }
                     let _nrOuts = _sp.outputParts.length;
                     expect(_nrOuts).to.equal(2);
+                });
+                it("Pump + AdjSplitter(70) + Pump:", function () {
+
+                    Pump.SetMaximumFlow(120);
+                    let _p = new Pump(100);
+                    let _sp = new AdjustableSplitter(70);
+                    let _sks = [];
+
+                    // done 2 sinks 
+                    _sks.push(new Sink());
+                    _sks.push(new Sink());
+                    let _pls = [];
+                    // done 3 pipelines
+                    _pls.push(new Pipeline());
+                    _pls.push(new Pipeline());
+                    _pls.push(new Pipeline());
+
+                    // Pump to splitter
+                    _pls[0].SetStartingComponent(_p);
+                    _pls[0].SetEndComponent(_sp);
+
+                    _p.AddOutput(_pls[0]);
+                    _sp.AddInput(_pls[0]);
+
+                    // Splitter to Sink 1
+                    _pls[1].SetStartingComponent(_sp);
+                    _pls[1].SetEndComponent(_sks[0]);
+                    _sp.AddOutput(_pls[1]);
+                    _sks[0].AddInput(_pls[1]);
+                    // Splitter to Sink 2
+                    _pls[2].SetStartingComponent(_sp);
+                    _pls[2].SetEndComponent(_sks[1]);
+                    _sp.AddOutput(_pls[2]);
+                    _sks[1].AddInput(_pls[2]);
+
+                    console.log(_p);
+                    console.log(_sp);
+                    console.log(_pls);
+                    console.log(_sks);
+                    // should like like this:
+                    /*
+                                                            -[1/70]- Sink[0](70)
+                        Pump(100) -[0/100]- ASplitter(%70)< 
+                                                            -[2/30]- Sink[1](30)
+                    */
+
+                    let retSink1Inflow = _sks[0].GetInflow();
+                    let retSink2Inflow = _sks[1].GetInflow();
+
+                    expect(retSink1Inflow).to.be.equal(70); // <- FIXED : got NaN
+                    expect(retSink2Inflow).to.be.equal(30);
+                });
+                it("Pump x2 + Merger + Pump:", function () {
+                    Pump.SetMaximumFlow(150);
+                    let _p1 = new Pump(100);
+                    let _p2 = new Pump(50);
+                    let _m = new Merger();
+
+                    let _pls = [];
+                    // done 3 pipelines
+                    _pls.push(new Pipeline());
+                    _pls.push(new Pipeline());
+                    _pls.push(new Pipeline());
+
+                    // TODO
                 })
+
             });
         });
     });

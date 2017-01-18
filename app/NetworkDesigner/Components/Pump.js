@@ -2,8 +2,8 @@ import {Component} from "./Component";
 
 class Pump extends Component{
     constructor(currentamount) {
-        // 0 - 0 inputs for the pumps, and -1 - infinite number of outputs for it
-        super(0,-1,currentamount);
+        // 0 - 0 inputs for the pumps, and 1 - 1 output for it
+        super(0,1,currentamount);
         this.SetOutflow(currentamount);
     }
     SetOutflow(x){
@@ -24,7 +24,7 @@ class Pump extends Component{
     }
     //we have made a mistake in the design document
     GetInflow(){
-        return 0;
+        return this.currentAmount;
     }
 
     GetOutflow(){

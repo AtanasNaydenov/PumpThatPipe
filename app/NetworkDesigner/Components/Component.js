@@ -89,7 +89,7 @@ class Component extends Part {
             )
         ) {
             this.inputParts.push(pipeline);
-            this.currentAmount = this.GetInflow();
+            this.currentAmount = this.GetInflow(); // that's wise
             return true;
         }
         return false;
@@ -105,7 +105,7 @@ class Component extends Part {
             )
         ) {
             this.outputParts.push(pipeline);
-            pipeline.currentflow = this.GetOutflow(); // it should conduct
+            pipeline.UpdateFlow(this.GetOutflow()); // it should conduct
             console.log("conducted flow: " + pipeline.currentflow);
             return true;
         }
