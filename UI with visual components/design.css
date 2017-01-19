@@ -129,7 +129,7 @@ body{
 }
 
 .globalSettings {
-    padding-top: 480px;
+    top: 480px;
     padding-left: 5%;
     position: absolute;
 }
