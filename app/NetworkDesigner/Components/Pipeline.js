@@ -51,6 +51,16 @@ class Pipeline extends Part {
         return this.outputParts[0];
     }
     Detach() {
+        
+        console.log(this.StartComponent.RemoveOutput(this));
+        // console.log("sc")
+        // console.log(this.StartComponent);
+        // console.log(_remRes);
+        // console.log("ec");
+        // console.log(this.EndComponent);
+        this.EndComponent.RemoveInput(this);
+        console.log("this");  
+        console.log(this);      
         this.updateConnections(this.outputParts[0]);
 
         this.outputParts = [];
@@ -59,12 +69,13 @@ class Pipeline extends Part {
 
     updateConnections(part) {
         try { // It's easier to ask forgiveness than it is to get permission.
+            console.log("updateflow called");
             if (part instanceof Pipeline) {
                 part.UdpdateFlow(part.Inputs[0].GetOutFlow());
                 return updateConnections(part.outputParts[0]);
             } else {
                 // assuming component
-                part.CurrentAmount = part.GetInflow();
+                part.currentAmount = part.GetInflow();
                 for (let i = 0; i < part.outputParts.len; i++) {
                     return updateConnections(part.outputParts[i]);
                 }
@@ -77,11 +88,8 @@ class Pipeline extends Part {
         
     }
     //TO DO
-    Swap(){
+    Swap(){}
 
-<<<<<<< HEAD
-    }
-=======
     // added those methods to for an ~easy~ (yeah, sure...) workaround 
     // this works like global SetMaxflow method - which is not very nice to have, 
     // as the name can be confused with smthng else
@@ -99,9 +107,16 @@ class Pipeline extends Part {
         return Pipeline.maxflow;
     }
 
-    Swap() { }
->>>>>>> a9647634d6e36552fab930649569c082b8d84b9f
+    // to get the starting component easily
+    get StartComponent(){
+        return this.inputParts[0];
+    }
 
+    get EndComponent(){
+        return this.outputParts[0];
+    }
+
+    Swap() { }
     Contains(x, y) {
 
     }

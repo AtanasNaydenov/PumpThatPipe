@@ -8,6 +8,10 @@ class Splitter extends Component
         super(1,2,currentamount); // splitters acccept 1 input and 2 outputs
         this.percentage=50; // splitters get 50 percent by default
     }
+
+    GetOutflow(){
+        return this.currentAmount * 0.5;
+    }
 }
 
 export {Splitter};

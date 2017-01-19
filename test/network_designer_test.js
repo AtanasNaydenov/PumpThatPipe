@@ -69,10 +69,54 @@ describe("NetworkController testing", function () {
         });
 
         it("Creates a network of a Pump and a Sink", function () {
-            let _p = new Pump(50);
+            let _NC = new NetworkController();
+
+            let _settings = {
+                "_newPipelineMaxFlow": 14,
+                "_newPumpMaxFlow": 13,
+            }; //what other global settings do we have? 
+
+            let _modRes = _NC.modifyGlobalSettings(_settings);
+
+            let _p = new Pump(10);
+            // The actions follow the #SD-001 and #SD-002
+            _NC.setSelectedTemplatePart(_p);
+            let _x = 10,
+                _y = 10; // some arbitrary coordinates
+            let _resPutPump = _NC.putComponent(_x, _y);
+
+            expect(_resPutPump).to.be.ok;
+            expect(_NC.SelectedTemplatePart).to.be.deep.equal({});;
+            
             let _sk = new Sink();
+            _NC.setSelectedTemplatePart(_sk);
+
+            _x = 40;
+            _y = 40;
+            let _resPutSink = _NC.putComponent(_x, _y);
+
+            expect(_resPutPump).to.be.ok;
+            expect(_NC.Parts.length).to.be.equal(2);
+            
             let _pl = new Pipeline();
-            // TO DO
+            _NC.setSelectedTemplatePart(_pl);
+
+            // set start
+            let _detectedComp = _NC.detectComponent(11,11);
+            expect(_detectedComp).to.be.deep.equal(_p); // the dected component should be the pump.
+            _NC.SelectedTemplatePart.SetStartingComponent(_detectedComp);
+            
+            // set end
+            _detectedComp = _NC.detectComponent(41,41);
+            expect(_detectedComp).to.be.deep.equal(_sk); // the dected component should be the pump.
+            _NC.SelectedTemplatePart.SetEndComponent(_detectedComp);
+
+            let _addPlResult = _NC.addPipeline(_pl.StartComponent,_pl.EndComponent);
+            
+            expect(_addPlResult).to.be.ok;
+            let _substanceInSink = _sk.GetInflow();
+            // GOOD TILL HERE
+            expect(_substanceInSink).to.be.equal(10); // <- PROBLEM
         });
 
     });
