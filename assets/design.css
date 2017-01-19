@@ -73,9 +73,7 @@ body{
 .actionButtons {
     top:var(--area-from-top);
     width: 100%;
-    height: 400px;
     position: absolute;
-    border-bottom: 1px solid gray;
 }
 
 .actionButton input[type=button]{
@@ -96,9 +94,31 @@ body{
     font-weight: 100;
 }
 
+#tabs {
+    background-color: transparent;
+    border: none;
+}/*
+
+
+.ui-tabs .ui-tabs-nav
+{
+    background: #0e0e0e;
+    border: none;
+}
+
+
+.ui-tabs .ui-tabs-anchor{
+    background-color:#1f1f1f;
+
+}*/
+
 .selectedCompOptions {
-    padding: 5%;
+    margin: 1%;
     position: static;
+}
+
+.selectedCompOptions, .globalSettings h2,h3,h4,p {
+    margin: 1%;
 }
 
 
@@ -107,7 +127,6 @@ body{
     height: 25px;
     text-align: center;
     line-height: 1.6em;
-    background-color: lightsalmon;
     border: none;
 }
 
@@ -117,7 +136,7 @@ body{
     left: 10%;
 }
 
-.selectedCompOptions input[type=button]{
+.DelSaveBtn{
     position: static;
     margin-top:20%;
     color: #1f1f1f;
@@ -128,14 +147,18 @@ body{
     width: 35%;
 }
 
+.DelSaveBtn:hover{
+ border: 1px solid lightgrey;
+}
+
 .globalSettings {
-    padding-top: 480px;
+    margin-top: 1%;
     padding-left: 5%;
     position: absolute;
 }
 
 .globalSettings #spinner {
-    width: 25px;
+    width: 35px;
     height: 20px;
 }
 
@@ -149,3 +172,4 @@ body{
     background-color: lightgrey;
 
 }
+
