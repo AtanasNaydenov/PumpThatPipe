@@ -479,14 +479,35 @@ describe("Testing part methods separately", function () {
                     let _p1 = new Pump(100);
                     let _p2 = new Pump(50);
                     let _m = new Merger();
-
+                    let _sk = new Sink();
                     let _pls = [];
                     // done 3 pipelines
                     _pls.push(new Pipeline());
                     _pls.push(new Pipeline());
                     _pls.push(new Pipeline());
 
-                    // TODO
+                    // Pump1 to merger
+                    _pls[0].SetStartingComponent(_p1);
+                    _pls[0].SetEndComponent(_m);
+
+                    _p1.AddOutput(_pls[0]);
+                    _m.AddInput(_pls[0]);
+
+                    // Pump2 to merger
+                    _pls[1].SetStartingComponent(_p2);
+                    _pls[1].SetEndComponent(_m);
+
+                    _p2.AddOutput(_pls[1]);
+                    _m.AddInput(_pls[1]);
+
+                    // merger to sink
+                    _pls[2].SetStartingComponent(_m);
+                    _pls[2].SetEndComponent(_sk);
+
+                    _m.AddOutput(_pls[2]);
+                    _sk.AddInput(_pls[2]);
+
+                    expect(_sk).to.have.property('currentAmount',150);
                 })
 
             });

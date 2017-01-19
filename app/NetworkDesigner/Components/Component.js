@@ -36,7 +36,7 @@ class Component extends Part {
 
         return sum;
     }
-    GetOutflow() {
+    GetOutflow() { // this doesn't really make sense unfortunately
         let sum = 0;
         for (let i = 0; i < this.outputParts.length; i++) {
             // console.log("getting outflow");
