@@ -111,7 +111,7 @@ function init() {
           $(go.Panel, "Auto",
             $(go.Panel, "Vertical",
               $(go.Picture,"Components/pump2.png",{width:34,height:34})),
-            $(go.Shape, "Rectangle", portStyle(false),
+            $(go.Shape, "Rectangle", portStyleSplitter(false),
               { portId: "out", alignment: new go.Spot(1, 0.5) })
 
            ));
@@ -191,6 +191,11 @@ function init() {
 
     // continually update the diagram
     loop();
+
+    function Delete()
+    {
+        myDiagram.clearSelection();
+    }
 }
 
 // update the diagram every 250 milliseconds
@@ -262,7 +267,8 @@ function doAnd(node) {
 
 //TO BE MADE
 // save a model to and load a model from JSON text, displayed below the Diagram
-function save() {
+function sllave() {
+
     document.getElementById("mySavedModel").value = myDiagram.model.toJson();
     myDiagram.isModified = false;
 }
@@ -271,4 +277,8 @@ function load() {
 }
 
 
-
+function Delete()
+{
+    console.dir(myDiagram.selection);
+    myDiagram.clearSelected();
+}

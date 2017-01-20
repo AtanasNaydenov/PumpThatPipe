@@ -21,6 +21,7 @@ function init() {
     if(selected=='pump'){
         texth2="Pump";
         textp="Starting-point of network. In:0  Out:1";
+        DisplayCompOptions('pump');
         }
     else if(selected=='sink'){
         texth2="Sink";
@@ -37,6 +38,7 @@ function init() {
     else if(selected=='asplitter'){
         texth2="Adjustable splitter";
         textp="Splits one pipeline into two by choosing upper output. In:1   Out:2";
+
     }
     else if(selected=='pipeline'){
         texth2="Pipeline";
@@ -69,7 +71,17 @@ function DisplayCompOptions(selected){
     var txtselectedCaption, txtselectedName, txtselectedOption1, txtselectedOption2;
     if(selected=='asplitter'){
         txtselectedName='ADJUSTABLE SPLITTER';
-        txtselectedOption1='Upper outflow:'
+        txtselectedOption1='Upper outflow:';
+        var outerdiv = document.getElementById("selectedOption1Bar");
+       var slider = document.createElement('div');
+        slider.setAttribute("id","slider");
+        var handle = document.createElement('div');
+        handle.setAttribute("id","custom-handle");
+        handle.setAttribute("class","ui-slider-handle");
+
+        document.outerdiv.appendChild(slider);
+        document.slider.appendChild(handle);
+
     }
     else if(selected=='pump'){
         txtselectedName='PUMP';
@@ -84,9 +96,34 @@ function DisplayCompOptions(selected){
 }
 
 //function to set pipelines maxflow, it will get some improvement to control user input (avoid non-integers/out of range)
-$( function() {
-    $( "#spinner" ).spinner({
-        min:0,
+$( function()
+{
+    $( "#spinner" ).spinner
+    ({
+        min:1,
         max:100,
+        change: function (event,ui) {
+            var value = $(this).val();
+            if(value<1)
+            {
+                $(this).val(1)
+            }
+           else if(isNaN(value ))
+           {
+               $(this).val(10)
+           }
+        }
     }).val(10);
+}
+);
+
+
+$( function() {
+    $( "#tabs" ).tabs();
 } );
+
+
+
+
+
+

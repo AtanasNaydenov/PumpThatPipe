@@ -6,6 +6,7 @@
 
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -39,25 +40,39 @@
             <div class="actionButton"><input type="button" value="Save" onclick=""/></div>
             <div class="actionButton"><input type="button" value="Open" onclick=""/></div>
             <div class="actionButton"><input type="button" value="New" onclick=""/></div>
-           <div class="selectedCompOptions">
-            <h4 id="selectedCaption">CURRENTLY SELECTED:</h4>
-            <h3 id="selectedName">ADJUSTABLE SPLITTER</h3>
-            <br>
-            <p id="selectedOption1">Upper outflow:</p>
-               <div id="slider">
-                   <div id="custom-handle" class="ui-slider-handle"></div>
+
+
+
+            <div id="tabs" class="ui-tabs">
+                <ul class="ui-tabs-nav">
+                    <li><a href="#current">Current</a></li>
+                    <li><a href="#global">Global</a></li>
+                </ul>
+
+
+              <div id="current" class="selectedCompOptions">
+
+                <h3 id="selectedName">ADJUSTABLE SPLITTER</h3>
+                <br>
+                <p id="selectedOption1">Upper outflow:</p>
+                   <div id="selectedOption1Bar">
+                       <div id="slider">
+                           <div id="custom-handle" class="ui-slider-handle"></div>
+                       </div>
+                   </div>
+                    <br>
+                   <input class="DelSaveBtn" type="button" value="Delete" onclick=""/>
                </div>
-             <p id="selectedOption2"></p>
-               <input type="button" value="Delete" onclick=""/>
-           </div>
-        </div><br>
 
-            <div class="globalSettings">
-                <h4>GLOBAL SETTINGS:</h4>
-                <p><label for="spinner">Adjust pipeline capacity <br>
-                    for the network:</label><br><br><input id="spinner" name="value"></p>
 
-            </div>
+                <div id="global" class="globalSettings">
+                    <h3>GLOBAL SETTINGS:</h3><br>
+                    <p><label for="spinner">Adjust pipeline capacity <br>
+                        for the network:</label><br><br><input id="spinner" name="value"></p>
+                    <input class="DelSaveBtn" type="button" value="Update" onclick=""/>
+
+                </div></div>
+        </div>
     </div>
     <div class="drawingArea" style="z-index: 1;"></div>
 </div>

@@ -5,6 +5,13 @@
 <head>
 
 
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="interaction.js"></script>
+<script type="text/javascript" src="go.js"></script>
+    <script type="text/javascript" src="code.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
     <title>Pump that pipe</title>
@@ -26,8 +33,8 @@
 
     <div class="optionsBar" style="z-index: 12;">
         <div class="actionButtons">
-            <div class="actionButton"><input id="saveModel" type="button" value="Save" onclick="save()"/></div>
-            <div class="actionButton"><input type="button" value="Open" onclick="load()"/></div>
+            <div class="actionButton"><input type="button" value="Save" onclick="sllave()"/></div>
+            <div class="actionButton"><input type="button" value="Open" onclick="cload()"/></div>
             <div class="actionButton"><input type="button" value="New" onclick=""/></div>
            <div class="selectedCompOptions">
             <h4 id="selectedCaption">CURRENTLY SELECTED:</h4>
@@ -38,7 +45,7 @@
                    <div id="custom-handle" class="ui-slider-handle"></div>
                </div>
              <p id="selectedOption2"></p>
-               <input id="deletebut" type="button" value="Delete"/>
+               <input id="deletebut" type="button" value="Delete" onclick="Delete()"/>
            </div>
         </div><br>
 
@@ -63,11 +70,6 @@
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script type="text/javascript" src="interaction.js"></script>
-<script type="text/javascript" src="go.js"></script>
 
 </body>
 </html>
