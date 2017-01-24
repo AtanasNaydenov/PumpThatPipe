@@ -376,6 +376,7 @@ function load() {
     })
 }
 
+function dload() {
     myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
 }
 
