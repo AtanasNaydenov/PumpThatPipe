@@ -28,15 +28,22 @@ class NetworkController {
     // A method that attempts adding a component to the network with the give x and y
     // returns a boolean representing the result of the action 
     putComponent(x, y) {
-        let _isDrawableResp = this.isDrawable(x, y);
-        if (_isDrawableResp) {
-            // check if returns something
+        // let _isDrawableResp = this.isDrawable(x, y);
+        // if (_isDrawableResp) {
+        // check if returns something
+        
+        try {
             this.SelectedTemplatePart.SetLocation(x, y);
             this.addPartToList(this.SelectedTemplatePart);
             this.SelectedTemplatePart = {};
             console.dir(this.SelectedTemplatePart);
+            return true;
+        } catch (e) {
+            return false;
         }
-        return _isDrawableResp;
+
+        // }
+        // return _isDrawableResp;
     }
 
     // to be used only when everything is alright
@@ -51,6 +58,8 @@ class NetworkController {
     // Checks the if the x and y coordinates are available for placing smthng
     // returns a boolean result
     isDrawable(x, y) {
+
+        // should be sort of skipped since now GOJS takes over
         for (let i = 0; i < this.Parts.length; i++) {
             if (this.Parts[i].Contains(x, y)) {
                 return false; // not drawable!
@@ -69,7 +78,7 @@ class NetworkController {
             this.addPartToList(this.SelectedTemplatePart);
             this.SelectedTemplatePart = {};
             console.log(this.Parts);
-            
+
             return true;
         }
         return false;
@@ -201,7 +210,7 @@ class NetworkController {
         for (let i = 0; i < this.Parts.length; i++) {
             console.log(this.Parts[i].constructor.name);
 
-            if (this.Parts[i] instanceof Component 
+            if (this.Parts[i] instanceof Component
                 && this.Parts[i].Contains(x, y)) {
                 console.log("found a component here");
                 _comp = this.Parts[i];

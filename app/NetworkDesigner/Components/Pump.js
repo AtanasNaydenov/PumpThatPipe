@@ -1,9 +1,9 @@
 import {Component} from "./Component";
 
 class Pump extends Component{
-    constructor(currentamount) {
+    constructor(currentamount, nodeKey) {
         // 0 - 0 inputs for the pumps, and 1 - 1 output for it
-        super(0,1,currentamount);
+        super(0,1,currentamount, nodeKey);
         this.SetOutflow(currentamount);
     }
     SetOutflow(x){

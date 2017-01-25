@@ -17,8 +17,8 @@ function Dimensions(x, y) {
 
 class Component extends Part {
 
-    constructor(maxNrInp, maxNrOutp, currentamount) {
-        super(maxNrInp, maxNrOutp);
+    constructor(maxNrInp, maxNrOutp, currentamount, nodeKey) {
+        super(maxNrInp, maxNrOutp, nodeKey);
         this.currentAmount = currentamount;
     }
 

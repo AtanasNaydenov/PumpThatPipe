@@ -3,8 +3,8 @@ import { Splitter } from "./Splitter";
 
 class AdjustableSplitter extends Splitter {
     //_percentage is set for the 1st connection, the second gets 100-percentage
-    constructor(_percentage, currentamount) {
-        super(currentamount); // the nr of inputs and outputs is already specified in the splitter super constructor
+    constructor(_percentage, currentamount, nodeKey) {
+        super(currentamount, nodeKey); // the nr of inputs and outputs is already specified in the splitter super constructor
         console.log(_percentage);
         this.percentage = _percentage;
     }

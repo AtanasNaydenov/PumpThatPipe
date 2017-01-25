@@ -4,11 +4,12 @@ class Sink extends Component {
     // constructor(x, y, maxNrImp) {
     //     super(x, y, maxNrImp);
     // } -- this does not look like the other constructors
-    constructor(x,y){ // x and y is for the coordinates? why is it only in this class?
+    constructor(nodeKey){ // x and y is for the coordinates? why is it only in this class?
+       super(0, -1, 0, nodeKey)
        let nrIn = -1; // for infinite
        let nrOut = 0; // for not outputting
        super(nrIn,nrOut);
-       this.SetLocation(x,y); // this should work then, right?
+       this.SetLocation(undefined,undefined); // this should work then, right?
     }
 }
 

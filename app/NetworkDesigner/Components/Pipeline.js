@@ -13,8 +13,8 @@ const Pipe_states = {
 };
 
 class Pipeline extends Part {
-    constructor(curflow) {
-        super(1, 1); // this is constantly 1,1
+    constructor(curflow, nodeKey) {
+        super(1, 1, nodeKey); // this is constantly 1,1
         this.currentflow = curflow;
         // Pipeline.LocSetMaxflow(); -> this is not supposed to be here
         this.UpdateState();

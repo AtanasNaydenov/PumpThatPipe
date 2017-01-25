@@ -1,6 +1,19 @@
 // here will be the definition of the controller managing all the relations between the system components.
 
-let masterCtrl = nul;
+import { NetworkController, NCCounter_FigGlobal } from "./NetworkDesigner/NetworkController";
+
+import { Part } from "./NetworkDesigner/Components/Part";
+import { Pipeline, SetMaxflow, Pipe_states } from "./NetworkDesigner/Components/Pipeline";
+import { Component } from "./NetworkDesigner/Components/Component";
+import { Splitter } from "./NetworkDesigner/Components/Splitter";
+import { AdjustableSplitter } from "./NetworkDesigner/Components/Adjustable_Splitter";
+import { Merger } from "./NetworkDesigner/Components/Merger";
+import { Pump } from "./NetworkDesigner/Components/Pump";
+import { Sink } from "./NetworkDesigner/Components/Sink";
+
+
+
+let masterCtrl = null;
 
 // Network part type enumeration 
 let PartTypeEnum = {
@@ -41,7 +54,7 @@ Array.prototype.contains = function(obj) {
 
 
 
-class MasterCtrl {
+class MasterController {
 
     // singleton constuctor, solution from http://amanvirk.me/singleton-classes-in-es6/
     constructor() {
@@ -51,39 +64,40 @@ class MasterCtrl {
             this.ProgramState = ProgramStateEnum.IDLE;
             masterCtrl = this;
         } // if there exists one already - ignore
+            // but make sure the network controller is new?
     };
 
     // due to the js convention to make method names starting with lowercase letters
-    createPart(type) {
+    createPart(type, nodeKey) {
 
         // TO TEST
-
+        console.log(type);
         //assuming that type is sent as a integer
         let _part = {};
         let _createdSuccesfully = true;
         let _progState = ProgramStateEnum.CREATECOMPONENT;
 
         switch (type) {
-            case (int)(PartTypeEnum.ADJUSTABLE_SPLITTER):
-                _part = new AjustableSplitter();
+            case (PartTypeEnum.ADJUSTABLE_SPLITTER):
+                _part = new AdjustableSplitter(50,0,nodeKey);
                 break;
-            case (int)(PartTypeEnum.PUMP):
-                _part = new Pump();
+            case (PartTypeEnum.PUMP):
+                _part = new Pump(0,nodeKey);
                 break;
-            case (int)(PartTypeEnum.MERGER):
-                _part = new Merger();
+            case (PartTypeEnum.MERGER):
+                _part = new Merger(0,nodeKey);
                 break;
-            case (int)(PartTypeEnum.SINK):
-                _part = new Sink();
+            case (PartTypeEnum.SINK):
+                _part = new Sink(0,nodeKey);
                 break;
-            case (int)(PartTypeEnum.SPLITTER):
-                _part = new Splitter();
+            case (PartTypeEnum.SPLITTER):
+                _part = new Splitter(0,nodeKey);
                 break;
-            case (int)(PartTypeEnum.PIPELINE):
+            case (PartTypeEnum.PIPELINE):
                 // only this is a pipeline, therefore the 
                 // state will be different from the create component
                 _progState = ProgramStateEnum.ADDINGPIPELINEIN;
-                _part = new Pipeline();
+                _part = new Pipeline(0,nodeKey);
                 break;
             default:
                 // the process failed, thus the program is in idle
@@ -101,26 +115,37 @@ class MasterCtrl {
             // why bother calling the method... 
 
             this.CurrentNetworkCtrl.setSelectedTemplatePart(_part); // set the new part
-            this.SetState(_progState);
+            this.setState(_progState);
         }
+        return _part;
     };
 
     addPart(x, y) {
         //TO DO
         let _part = this.CurrentNetworkCtrl.SelectedTemplatePart;
+        let _result = false;
+        console.dir(this);
 
-        if (this.ProgramState = ProgramStateEnum.CREATECOMPONENT)
+        if (this.ProgramState == ProgramStateEnum.CREATECOMPONENT 
+            && _part instanceof Component)
         // if the component is the thing to be added
         {
-            let _res = this.CurrentNetworkCtrl.putComponent(x, y);
-            if (_res) {
+            let _tempres = this.CurrentNetworkCtrl.putComponent();
+            if (_tempres) {
                 this.draw(_part);
             }
             console.log('added a part');
+            console.dir(this.CurrentNetworkCtrl.Parts);
+            _result = true;
         }
         else {
             console.log('not creating a component, shall not execute');
+            _result = false;
         }
+        this.setState(ProgramStateEnum.IDLE);
+
+        console.log("exiting addPart() with" + _result);
+        return _result;
     };
 
 
@@ -193,7 +218,7 @@ class MasterCtrl {
     // network data management
 
     createNewNetwork() {
-        //TO DO 
+        this.CurrentNetworkCtrl = new NetworkController();
     }
 
     saveCurrentNetwork() {
@@ -292,9 +317,13 @@ class MasterCtrl {
 
     setState(progState) {
         // requires checking whether such transition can hold
-        if (ProgramState
-            .transitions[(int)(this.ProgramState)] // current program state
-                .linkedTo.contains((int)(progState))) { // has a transition to desired state
+        console.log(progState);
+        console.dir(this);
+        console.log(ProgramStateEnum
+            .transitions[this.ProgramState]);
+        if (ProgramStateEnum
+            .transitions[this.ProgramState] // current program state
+                .linkedTo.contains((progState))) { // has a transition to desired state
 
             this.ProgramState = progState; // then this transition takes place
             if (this.ProgramState == ProgramStateEnum.IDLE) {
@@ -302,6 +331,8 @@ class MasterCtrl {
                 this.CurrentNetworkCtrl.SelectedExistingPart = {};
                 this.CurrentNetworkCtrl.SelectedTemplatePart = {};
             }
+            console.log("Program state transition success: "
+            + this.ProgramState);
             return true;
         }
         console.log("Program state transition failed: "
@@ -310,3 +341,4 @@ class MasterCtrl {
     }
 }
 
+export {MasterController, PartTypeEnum, ProgramStateEnum}

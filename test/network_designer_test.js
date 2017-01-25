@@ -15,23 +15,24 @@ import { Merger } from "../app/NetworkDesigner/Components/Merger";
 import { Pump } from "../app/NetworkDesigner/Components/Pump";
 import { Sink } from "../app/NetworkDesigner/Components/Sink";
 
-
-
 describe("NetworkController testing", function () {
     describe("Controller initialization test", function () {
         it("creates an instance of a NetworkController", function () {
             let NC = new NetworkController();
 
             expect(NC).to.be.an.instanceof(NetworkController);
-            expect(NC).to.have.property('Name', 'NC_1');
+            expect(NC).to.have.property('Name', 'NC_'+NCCounter_FigGlobal);
 
         });
 
         it("creates two instances of a NetworkController", function () {
             let NC1 = new NetworkController(); // since the test before was run, this should get number 2 and 3
+            
+            let temp = NCCounter_FigGlobal;
+            
             let NC2 = new NetworkController();
-            expect(NC1).to.have.property('Name', 'NC_2');
-            expect(NC2).to.have.property('Name', 'NC_3');
+            expect(NC1).to.have.property('Name', 'NC_'+temp);
+            expect(NC2).to.have.property('Name', 'NC_'+NCCounter_FigGlobal);
         });
     });
     describe("Controller functionality tests", function () {
