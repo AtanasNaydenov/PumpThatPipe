@@ -34,8 +34,8 @@
     <div class="optionsBar" style="z-index: 12;">
         <div class="actionButtons">
             <div class="actionButton"><input type="button" value="Save" onclick="sllave()"/></div>
-            <div class="actionButton"><input type="button" value="Open" onclick="cload()"/></div>
-            <div class="actionButton"><input type="button" value="New" onclick=""/></div>
+            <div class="actionButton"><input type="file" value="Open" id="openFile" onclick="getTheFile()"/></div>
+            <div class="actionButton"><input target="_blank" type="button" value="New" onclick="window.open('http://192.168.9.1:8080/')"/></div>
            <div class="selectedCompOptions">
             <h4 id="selectedCaption">CURRENTLY SELECTED:</h4>
             <h3 id="selectedName">ADJUSTABLE SPLITTER</h3>
@@ -45,7 +45,7 @@
                    <div id="custom-handle" class="ui-slider-handle"></div>
                </div>
              <p id="selectedOption2"></p>
-               <input id="deletebut" type="button" value="Delete" onclick="Delete()"/>
+               <input id="delete" type="button" value="Delete" onclick="Delete()"/>
            </div>
         </div><br>
 
