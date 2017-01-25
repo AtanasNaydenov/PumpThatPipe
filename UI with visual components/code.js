@@ -1,5 +1,6 @@
 var red = "orangered"; // 0 or false
 var green = "forestgreen"; // 1 or true
+var counter=1;
 
 function init() {
     var $ = go.GraphObject.make; // for conciseness in defining templates
@@ -25,16 +26,25 @@ function init() {
         }
     });
 
+    var palette = new go.Palette("palette");  // create a new Palette in the HTML DIV element "palette"
 
     myDiagram.addDiagramListener("ExternalObjectsDropped", function(e) {
-            alert("i have big boobs");
+            //alert("i have big boobs");
+        console.dir(myDiagram.selection.Da.key.ei);
+        myDiagram.selection.ourkey=counter;
+        counter++;
+        console.dir(myDiagram.selection);
+        if(palette.selection.Da.key.ei=="sink")
+            alert("this is a sink");
+        console.log(palette.click);
         });
 
-    myDiagram.addDiagramListener("ObjectSingleClicked", function(e) {
-        alert("i have big boobs");
-    });
+    //ChangedSelection
 
-    var palette = new go.Palette("palette");  // create a new Palette in the HTML DIV element "palette"
+    myDiagram.addDiagramListener("ObjectSingleClicked", function(e) {
+        if(palette.selection.Da.key.ei=="sink")
+            alert("this is a sink");
+    });
 
 
     // creates relinkable Links that will avoid crossing Nodes when possible and will jump over other Links in their paths
