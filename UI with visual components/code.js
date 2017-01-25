@@ -25,6 +25,10 @@ function init() {
         }
     });
 
+    myDiagram.addDiagramListener("ExternalObjectsDropped", function(e) {
+            alert("i have big boobs");
+        });
+
     var palette = new go.Palette("palette");  // create a new Palette in the HTML DIV element "palette"
 
     // creates relinkable Links that will avoid crossing Nodes when possible and will jump over other Links in their paths
@@ -130,7 +134,6 @@ function init() {
 
             ));
 
-    console.log(myDiagram.select);
     var splitterimage=
         $(go.Node,"Vertical",nodeStyle(),
             $(go.Panel, "Auto",
@@ -191,11 +194,6 @@ function init() {
 
     // continually update the diagram
     loop();
-
-    function Delete()
-    {
-        myDiagram.clearSelection();
-    }
 }
 
 // update the diagram every 250 milliseconds
@@ -260,10 +258,7 @@ function doSink(node) {
     var color = node.findLinksInto().all(linkIsTrue) ? green : red;
     setOutputLinks(node, color);
 }
-function doAnd(node) {
-    var color = node.findLinksInto().all(linkIsTrue) ? green : red;
-    setOutputLinks(node, color);
-}
+
 
 //TO BE MADE
 // save a model to and load a model from JSON text, displayed below the Diagram
@@ -279,6 +274,9 @@ function load() {
 
 function Delete()
 {
-    console.dir(myDiagram.selection);
-    myDiagram.clearSelected();
+    myDiagram.allowDelete=true;
+    myDiagram.commandHandler.deleteSelection();
+    myDiagram.allowDelete=false;
 }
+
+
