@@ -78,7 +78,7 @@ body{
     border-bottom: 1px solid gray;
 }
 
-.actionButton input[type=button]{
+.actionButton input[type=button],.actionButton input[type=file] {
     width: 100%;
     font-size: 120%;
     color: salmon;

@@ -25,15 +25,17 @@ function init() {
         }
     });
 
-<<<<<<< HEAD
+
     myDiagram.addDiagramListener("ExternalObjectsDropped", function(e) {
             alert("i have big boobs");
         });
 
+    myDiagram.addDiagramListener("ObjectSingleClicked", function(e) {
+        alert("i have big boobs");
+    });
+
     var palette = new go.Palette("palette");  // create a new Palette in the HTML DIV element "palette"
-=======
-    var palette = new go.Palette("palette"); // create a new Palette in the HTML DIV element "palette"
->>>>>>> 955e22a843cae29d4dffdec45d24a676c16c540a
+
 
     // creates relinkable Links that will avoid crossing Nodes when possible and will jump over other Links in their paths
     myDiagram.linkTemplate =
@@ -163,14 +165,9 @@ function init() {
 
             ));
 
-<<<<<<< HEAD
-    var splitterimage=
-        $(go.Node,"Vertical",nodeStyle(),
-=======
-    console.log(myDiagram.select);
+
     var splitterimage =
         $(go.Node, "Vertical", nodeStyle(),
->>>>>>> 955e22a843cae29d4dffdec45d24a676c16c540a
             $(go.Panel, "Auto",
                 $(go.Panel, "Vertical",
                     $(go.Picture, "Components/splitter2.png", {
@@ -261,13 +258,6 @@ function init() {
 
     // continually update the diagram
     loop();
-<<<<<<< HEAD
-=======
-
-    function Delete() {
-        myDiagram.clearSelection();
-    }
->>>>>>> 955e22a843cae29d4dffdec45d24a676c16c540a
 }
 
 // update the diagram every 250 milliseconds
@@ -350,13 +340,6 @@ function doSink(node) {
     setOutputLinks(node, color);
 }
 
-<<<<<<< HEAD
-=======
-function doAnd(node) {
-    var color = node.findLinksInto().all(linkIsTrue) ? green : red;
-    setOutputLinks(node, color);
-}
->>>>>>> 955e22a843cae29d4dffdec45d24a676c16c540a
 
 //TO BE MADE
 // save a model to and load a model from JSON text, displayed below the Diagram
@@ -383,34 +366,24 @@ function download(filename, text) {
     }
 }
 
-function load() {
-    var textresult;
-    //  myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
+function getTheFile() {
     document.getElementById("openFile").addEventListener('change', function() {
         var fr = new FileReader();
         fr.onload = function() {
             document.getElementById("mySavedModel").innerHTML = this.result;
+            load();
         }
         fr.readAsText(this.files[0]);
     })
 }
-
-function dload() {
+function load() {
     myDiagram.model = go.Model.fromJson(document.getElementById("mySavedModel").value);
 }
 
-<<<<<<< HEAD
+
 function Delete()
 {
     myDiagram.allowDelete=true;
     myDiagram.commandHandler.deleteSelection();
     myDiagram.allowDelete=false;
 }
-
-
-=======
-function Delete() {
-    console.dir(myDiagram.selection);
-    myDiagram.clearSelected();
-}
->>>>>>> 955e22a843cae29d4dffdec45d24a676c16c540a
