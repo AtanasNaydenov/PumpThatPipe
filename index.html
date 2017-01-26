@@ -47,50 +47,58 @@
             <div class="actionButton"><input type="file" value="Open" id="openFile"  onclick="getTheFile()"/></div>
             <div class="actionButton"><input target="_blank" type="button" value="New" onclick="window.open(window.location.href )"/></div>
 
+
             <ul class="tab">
                 <li><a href="javascript:void(0)" id ="defaultTab" class="tablinks" onclick="ShowSettings(event, 'current')" >Current</a></li>
                 <li><a href="javascript:void(0)"  class="tablinks" onclick="ShowSettings(event, 'global')">Global</a></li>
              </ul>
 
-
-
             <div id="current" class="tabcontent">
-                  <h3 id="selectedName"></h3>
-                   <br>
-
-                    <p id="currentFlow"></p>
-                    <br>
+                <h3 id="selectedName"></h3>
+                <br>
+                <p id="currentFlow"></p>
+                <br>
 
                 <table>
-                  <tr><td> <p id="option1name"></p></td>
-                    <td><div id="option1">
+                  <tr>
+                      <td> <p id="option1name"></p></td>
+                        <td><div id="option1">
                        <!--<div id="slider">-->
                            <!--<div id="custom-handle" class="ui-slider-handle"></div>-->
                        <!--</div>-->
-                   </div></td></tr>
-                    <br>
-                  <tr> <td> <p id="option2name"></p></td>
+                        </div></td>
+                  </tr>
 
-                   <td> <div id="option2"> </div></td></tr>
+                    <br>
+
+                  <tr>
+                      <td> <p id="option2name"></p></td>
+                      <td> <div id="option2"> </div></td>
+                  </tr>
                 </table>
                    <br>
-                   <input id="deleteComp" class="DelSaveBtn" type="button" value="Delete" onclick="Delete()"/>
+
+                <input id="deleteComp" class="DelSaveBtn" type="button" value="Delete" onclick="Delete()"/>
                 <input id="saveComp" class="DelSaveBtn" type="button" value="Save" onclick=""/>
 
             </div>
 
             <div id="global" class="tabcontent">
                 <h3>GLOBAL SETTINGS:</h3><br>
-                <p><label for="spinner">Adjust pipeline capacity <br> for the network:</label>
-                    <br><br>
-                    <input id="spinner" name="value">
-                </p>
-                <input class="DelSaveBtn" type="button" value="Update" onclick=""/>
+
+               <table>
+                   <td>
+                       <p>Adjust pipeline capacity for the network:</p>
+                   </td>
+                   <td>
+                       <input type="number"  min=1 name="value" value="10"><!--value should be current capacity-->
+                   </td>
+               </table>
+
+                <input class="DelSaveBtn" type="button" value="Update" onclick=""/><!--saves the new capacity for pipelines*/-->
             </div>
 
-
         </div>
-
 
     </div>
     <div id="myDiagramDiv" class="drawingArea" style="z-index: 1;"></div>

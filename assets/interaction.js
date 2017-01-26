@@ -36,27 +36,25 @@
     document.getElementById("comIntro").innerHTML = textp;
 }
 
-//JQuery for slider, code gotten from jquery API site
 
 
 
-
-//function to set pipelines maxflow, it will get some improvement to control user input (avoid non-integers/out of range)
-$( function()
-{
-    $( "#spinner" ).spinner
-    ({
-        min:1,
-        change: function (event,ui) {
-            var value = $(this).val();
-            if(value<1 || isNaN(value ))
-            {
-                $(this).val(1)
-            }
-        }
-    }).val(10);
-}
-);
+//function to set pipelines maxflow with jquery, currently out of use
+// $( function()
+// {
+//     $( "#spinner" ).spinner
+//     ({
+//         min:1,
+//         change: function (event,ui) {
+//             var value = $(this).val();
+//             if(value<1 || isNaN(value ))
+//             {
+//                 $(this).val(1)
+//             }
+//         }
+//     }).val(10);
+// }
+// );
 
 //function for slider which is currently out of use
 // $( function()
