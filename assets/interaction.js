@@ -177,7 +177,7 @@ function ShowSelectedComponentInfo(selected)
         flow= selected.currentflow;
         selectedname.innerHTML = "PIPELINE";
         currentflow.innerHTML = "Current flow: " + flow;
-        option1name.innerHTML='';
+        option1name.innerHTML='Pipeline sate: '+ selected.state;
         option1.innerHTML='';
         option2name.innerHTML='';
         option2.innerHTML='';
