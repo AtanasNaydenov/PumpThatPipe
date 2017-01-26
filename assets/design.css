@@ -11,7 +11,7 @@ body{
     padding: 0;
 }
 
-/*Component area*/
+/*Upper Component area*/
 .componentsBar {
     background-color: #1f1f1f;
     position: fixed;
@@ -20,7 +20,7 @@ body{
     display: inline;
 }
 
-
+/*Our palette with components*/
 .componentButtons {
     height: 50px;
     width: 35%;
@@ -30,19 +30,7 @@ body{
     float:left;
 }
 
-.componentButtons input[type=image] {
-    padding: 0.5%;
-    margin-left: 0.5%;
-    margin-right: 0.5%;
-    width: 50px;
-    height: 50px;
-
-}
-
-.componentButtons input[type=image]:hover {
-    border: 1px solid salmon;
-}
-
+/*short introduction of components*/
 .componentIntroduction{
     position: absolute;
     margin-left: 38%;
@@ -56,10 +44,11 @@ body{
 }
 
 
-/*Options Area*/
+/*Options Area on the right side*/
 * {
     box-sizing: border-box;
 }
+
 
 .optionsBar{
     background-color: #1f1f1f;
@@ -67,9 +56,9 @@ body{
     width: var(--area-on-right);
     height: 150%;
     right:0;
-    clear: both;
 }
 
+/*save, load and new*/
 .actionButtons {
     top:var(--area-from-top);
     width: 100%;
@@ -84,6 +73,7 @@ body{
     background-color: #0e0e0e;
 }
 
+
 .actionButton input[type=button]:hover, .actionButton input[type=file]:hover{
     border: 1px solid salmon;
 }
@@ -95,24 +85,38 @@ body{
     margin: 2%;
 }
 
+/*#custom-handle {*/
+    /*width: 35px;*/
+    /*height: 25px;*/
+    /*text-align: center;*/
+    /*line-height: 1.6em;*/
+    /*border: none;*/
+/*}*/
 
+/*#slider {*/
+    /*width: 70%;*/
+    /*top: 20px;*/
+    /*left: 10%;*/
+/*}*/
 
-
-
-#custom-handle {
-    width: 35px;
-    height: 25px;
+.tabcontent input[type=number] {
+    width: 70px;
+    height: 30px;
+    font-size: 100%;
+    float:right;
     text-align: center;
-    line-height: 1.6em;
-    border: none;
+    border-radius: 3px;
+    color: #1f1f1f;
 }
 
-#slider {
-    width: 70%;
-    top: 20px;
-    left: 10%;
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+
+    opacity: 1;
+
 }
 
+/*Button to update global settings, delete or update component*/
 .DelSaveBtn{
     position: static;
     margin-top:20%;
@@ -130,7 +134,7 @@ body{
 }
 
 
-
+/*spinner for global settings*/
 #global #spinner {
     width: 50px;
     height: 20px;
@@ -148,7 +152,7 @@ body{
 }
 
 
-/* Style the list */
+/* 'current' and 'global' tabs*/
 ul.tab {
     list-style-type: none;
     margin: 0;
@@ -158,13 +162,10 @@ ul.tab {
     background-color: #0e0e0e;
 }
 
-/* Float the list items side by side */
 ul.tab li {
     float: left;
-
 }
 
-/* Style the links inside the list items */
 ul.tab li a {
     display: inline-block;
     color: salmon;
@@ -173,13 +174,10 @@ ul.tab li a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    transition: 0.3s;
 }
 
-/* Change background color of links on hover */
 ul.tab li a:hover {background-color: #2b2b2b;}
 
-/* Create an active/current tablink class */
 ul.tab li a:focus, .active {
     background-color: #1f1f1f;
     border: 1px solid salmon;
@@ -188,9 +186,7 @@ ul.tab li a:focus, .active {
     font-family: Arial;
 }
 
-/* Style the tab content */
 .tabcontent {
-    display: none;
     padding: 6px 12px;
     border: none;
 }

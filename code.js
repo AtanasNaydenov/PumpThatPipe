@@ -9,6 +9,9 @@ var _MasterPTPControler = new MasterController();
 
 function init() {
     var $ = go.GraphObject.make; // for conciseness in defining templates
+    document.getElementById("defaultTab").click();
+    document.getElementById("current").style.display = 'none';
+
 
     myDiagram =
         $(go.Diagram, "myDiagramDiv", // create a new Diagram in the HTML DIV element "myDiagramDiv"
@@ -161,7 +164,9 @@ function init() {
         console.log("You have clicked on a component. The node key is:"+_TempNodeKey);
         _MasterPTPControler.selectPart(_TempNodeKey);
         let _selectedData = _MasterPTPControler.findPartOfNode(_TempNodeKey);
+        document.getElementById("current").style.display = 'block';
         ShowSelectedComponentInfo(_selectedData);
+
         // show selected stuff method
     });
 
@@ -172,6 +177,13 @@ function init() {
         console.log("deleting");
         console.dir(e);
     });
+
+    myDiagram.addDiagramListener("BackgroundSingleClicked", function (e) {
+        var div = document.getElementById("current");
+        div.style.display = 'none';
+    });
+
+
 
     
 

@@ -16,7 +16,7 @@
     <script type="text/javascript" src="app.rel/NetworkDesigner/NetworkController.js"></script>
     <script type="text/javascript" src="app.rel/MasterController.js"></script>
 
-    <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+    <!--<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>-->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
@@ -48,8 +48,8 @@
             <div class="actionButton"><input target="_blank" type="button" value="New" onclick="window.open(window.location.href )"/></div>
 
             <ul class="tab">
-                <li><a href="javascript:void(0)" id ="tabCurrent" class="tablinks" onclick="ShowSettings(event, 'current')" >Current</a></li>
-                <li><a href="javascript:void(0)" id="tabGlobal" class="tablinks" onclick="ShowSettings(event, 'global')">Global</a></li>
+                <li><a href="javascript:void(0)" id ="defaultTab" class="tablinks" onclick="ShowSettings(event, 'current')" >Current</a></li>
+                <li><a href="javascript:void(0)"  class="tablinks" onclick="ShowSettings(event, 'global')">Global</a></li>
              </ul>
 
 
@@ -59,20 +59,22 @@
                    <br>
 
                     <p id="currentFlow"></p>
-                    <br><br>
+                    <br>
 
-                   <p id="option1name"></p>
-                   <div id="option1">
+                <table>
+                  <tr><td> <p id="option1name"></p></td>
+                    <td><div id="option1">
                        <!--<div id="slider">-->
                            <!--<div id="custom-handle" class="ui-slider-handle"></div>-->
                        <!--</div>-->
-                   </div>
+                   </div></td></tr>
+                    <br>
+                  <tr> <td> <p id="option2name"></p></td>
 
-                    <p id="option2name"></p>
-                    <div id="option2"> </div>
-
+                   <td> <div id="option2"> </div></td></tr>
+                </table>
                    <br>
-                   <input id="deletebut" class="DelSaveBtn" type="button" value="Delete" onclick="Delete()"/>
+                   <input id="deleteComp" class="DelSaveBtn" type="button" value="Delete" onclick="Delete()"/>
                 <input id="saveComp" class="DelSaveBtn" type="button" value="Save" onclick=""/>
 
             </div>

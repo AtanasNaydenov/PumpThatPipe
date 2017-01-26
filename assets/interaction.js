@@ -58,24 +58,25 @@ $( function()
 }
 );
 
-$( function()
-{
-    var handle = $( "#custom-handle" );
-    $( "#slider" ).slider({
-        max:15,
-        value:6,
-        create: function() {
-            handle.text( $( this ).slider( "value" ) );
-        },
-        slide: function( event, ui ) {
-            handle.text( ui.value );
-        }
-    });
-}
-);
+//function for slider which is currently out of use
+// $( function()
+// {
+//     var handle = $( "#custom-handle" );
+//     $( "#slider" ).slider({
+//         max:15,
+//         value:6,
+//         create: function() {
+//             handle.text( $( this ).slider( "value" ) );
+//         },
+//         slide: function( event, ui ) {
+//             handle.text( ui.value );
+//         }
+//     });
+// }
+// );
 
 
-$( "#deletebut" ).on( "click", function() {
+$( "#deleteComp" ).on( "click", function() {
     alert( "potato" );
 });
 
@@ -107,7 +108,7 @@ function ShowSettings(evt, selectedtab)
 
 function ShowSelectedComponentInfo(selected)
 {
-
+    document.getElementById("defaultTab").click();
     var selectedname = document.getElementById("selectedName");
     var currentflow = document.getElementById("currentFlow");
     var option1name = document.getElementById("option1name");
@@ -123,7 +124,7 @@ function ShowSelectedComponentInfo(selected)
         currentflow.innerHTML = "Current flow: " + selected.currentAmount;
 
         option1.innerHTML='';
-        option1name.innerHTML="Upper outflow in %:";
+        option1name.innerHTML="Upper outflow %:";
         var input = document.createElement('input');
         input.max = 100;
         input.min=0;
@@ -171,6 +172,7 @@ function ShowSelectedComponentInfo(selected)
         curflow.value=selected.currentAmount;
         option2.appendChild(curflow);
 
+        // --in case of jquery usage
         // option1name.innerHTML="Max flow:";
         // var inputAS = document.createElement("input");
         // inputAS.type = "text";
