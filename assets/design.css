@@ -116,6 +116,7 @@ body{
 .DelSaveBtn{
     position: static;
     margin-top:20%;
+    margin-right:2px;
     color: #1f1f1f;
     background-color: lightsalmon;
     border: none;
