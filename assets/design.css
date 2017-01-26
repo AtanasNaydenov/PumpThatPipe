@@ -76,7 +76,7 @@ body{
     position: absolute;
 }
 
-.actionButton input[type=button]{
+.actionButton input[type=button], .actionButton input[type=file] {
     width: 100%;
     font-size: 120%;
     color: salmon;
@@ -84,7 +84,7 @@ body{
     background-color: #0e0e0e;
 }
 
-.actionButton input[type=button]:hover{
+.actionButton input[type=button]:hover, .actionButton input[type=file]:hover{
     border: 1px solid salmon;
 }
 
@@ -92,34 +92,11 @@ body{
     color: #ffecde;
     font-family: Arial;
     font-weight: 100;
-}
-
-#tabs {
-    background-color: transparent;
-    border: none;
-}/*
-
-
-.ui-tabs .ui-tabs-nav
-{
-    background: #0e0e0e;
-    border: none;
+    margin: 2%;
 }
 
 
-.ui-tabs .ui-tabs-anchor{
-    background-color:#1f1f1f;
 
-}*/
-
-.selectedCompOptions {
-    margin: 1%;
-    position: static;
-}
-
-.selectedCompOptions, .globalSettings h2,h3,h4,p {
-    margin: 1%;
-}
 
 
 #custom-handle {
@@ -151,14 +128,10 @@ body{
  border: 1px solid lightgrey;
 }
 
-.globalSettings {
-    margin-top: 1%;
-    padding-left: 5%;
-    position: absolute;
-}
 
-.globalSettings #spinner {
-    width: 35px;
+
+#global #spinner {
+    width: 50px;
     height: 20px;
 }
 
@@ -172,4 +145,53 @@ body{
     background-color: lightgrey;
 
 }
+
+
+/* Style the list */
+ul.tab {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: none;
+    background-color: #0e0e0e;
+}
+
+/* Float the list items side by side */
+ul.tab li {
+    float: left;
+
+}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: salmon;
+    font-size: 120%;
+    font-family: Arial;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {background-color: #2b2b2b;}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {
+    background-color: #1f1f1f;
+    border: 1px solid salmon;
+    border-bottom: none;
+    color: salmon;
+    font-family: Arial;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: none;
+}
+
 
