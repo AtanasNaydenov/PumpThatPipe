@@ -165,12 +165,9 @@ function init() {
 
 
     // IN PROGRESS
-     myDiagram.addDiagramListener("SelectionDeleted", function (e) {
-        // if (myDiagram.selection.Da.key.ei == "sink")
-        //     alert("this is a sink");
-        let _TempNodeKey = myDiagram.selection.Da.key.__gohashid; // this does not work...
-        console.log("You have clicked on a component. The node key is:"+_TempNodeKey);
-        _MasterPTPControler.selectPart(_TempNodeKey);
+     myDiagram.addDiagramListener("SelectionDeleting", function (e) {
+        console.log("deleting");
+        console.dir(e);
     });
 
     
