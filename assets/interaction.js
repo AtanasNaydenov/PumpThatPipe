@@ -1,17 +1,4 @@
-/* Not necessary in current context
-var canvas; // the whole app area
-var drawingArea; // drawing area
-var componentsBar; // Pipeline and components area
-var optionsBar; // Options and settings area
 
-function init() {
-    canvas.getElementsByClassName("canvas");
-    canvas.getContext("2d");
-    drawingArea.getElementsByClassName("drawingArea");
-    componentsBar.getElementsByClassName("componentsBar");
-    optionsBar.getElementsByClassName("optionsBar");
-
-}*/
 
 //Display short description of component in the upper componentsbar
  function DisplayCompIntro(selected)
@@ -50,50 +37,9 @@ function init() {
 }
 
 //JQuery for slider, code gotten from jquery API site
-$( function() {
-    var handle = $( "#custom-handle" );
-    $( "#slider" ).slider({
-        max:15,
-        value:10,
-        create: function() {
-            handle.text( $( this ).slider( "value" ) );
-        },
-        slide: function( event, ui ) {
-            handle.text( ui.value );
-        }
-    });
-} );
 
 
 
-//following function is not yet finished, might even exchange it to jquery hide/show to ease work
-function DisplayCompOptions(selected){
-    var txtselectedCaption, txtselectedName, txtselectedOption1, txtselectedOption2;
-    if(selected=='asplitter'){
-        txtselectedName='ADJUSTABLE SPLITTER';
-        txtselectedOption1='Upper outflow:';
-        var outerdiv = document.getElementById("selectedOption1Bar");
-       var slider = document.createElement('div');
-        slider.setAttribute("id","slider");
-        var handle = document.createElement('div');
-        handle.setAttribute("id","custom-handle");
-        handle.setAttribute("class","ui-slider-handle");
-
-        document.outerdiv.appendChild(slider);
-        document.slider.appendChild(handle);
-
-    }
-    else if(selected=='pump'){
-        txtselectedName='PUMP';
-        txtselectedOption1='Max flow:';
-        txtselectedOption2='Current flow:';
-        document.getElementById("selectedOption2").innerHTML=txtselectedOption2;
-    }
-    txtselectedCaption='CURRENTLY SELECTED';
-    document.getElementById("selectedCaption").innerHTML=txtselectedCaption;
-    document.getElementById("selectedName").innerHTML=txtselectedName;
-    document.getElementById("selectedOption1").innerHTML=txtselectedOption1;
-}
 
 //function to set pipelines maxflow, it will get some improvement to control user input (avoid non-integers/out of range)
 $( function()
@@ -101,26 +47,131 @@ $( function()
     $( "#spinner" ).spinner
     ({
         min:1,
-        max:100,
         change: function (event,ui) {
             var value = $(this).val();
-            if(value<1)
+            if(value<1 || isNaN(value ))
             {
                 $(this).val(1)
             }
-           else if(isNaN(value ))
-           {
-               $(this).val(10)
-           }
         }
     }).val(10);
 }
 );
 
+$( function()
+{
+    var handle = $( "#custom-handle" );
+    $( "#slider" ).slider({
+        max:15,
+        value:6,
+        create: function() {
+            handle.text( $( this ).slider( "value" ) );
+        },
+        slide: function( event, ui ) {
+            handle.text( ui.value );
+        }
+    });
+}
+);
 
-$( function() {
-    $( "#tabs" ).tabs();
-} );
+
+$( "#deletebut" ).on( "click", function() {
+    alert( "potato" );
+});
+
+
+function ShowSettings(evt, selectedtab)
+{
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+
+    // Show the current tab, and add an "active" class to the link that opened the tab
+    document.getElementById(selectedtab).style.display = "block";
+    evt.currentTarget.className += " active";
+
+    document.getElementById("currentFlow").innerHTML = "7";
+}
+
+
+function ShowSelectedComponentInfo(selected)
+{
+
+    var selectedname = document.getElementById("selectedName");
+    var currentflow = document.getElementById("currentFlow");
+    var option1name = document.getElementById("option1name");
+    var option1 = document.getElementById("option1");
+    var option2name = document.getElementById("option2name");
+    var option2 = document.getElementById("option2");
+    if(selected=="Asplitter")
+    {
+        selectedname.innerHTML = "ADJUSTABLE SPLITTER";
+        currentflow.innerHTML = "1";
+        option1name.innerHTML="Upper outflow:";
+
+        var slider = document.createElement('div');
+        slider.id="slider";
+        option1.appendChild(slider);
+        var handle = document.createElement('div');
+        handle.id="custom-handle";
+        handle.className="ui-slider-handle";
+        slider.appendChild(handle);
+
+    }
+    if(selected=="Splitter")
+    {
+        selectedname.innerHTML = "SPLITTER";
+        currentflow.innerHTML = "1";
+    }
+    if(selected=="Pump")
+    {
+        selectedname.innerHTML = "PUMP";
+        currentflow.innerHTML = "1";
+        option1name.innerHTML="Max flow:";
+        var inputAS = document.createElement("input");
+        inputAS.type = "text";
+        option1.appendChild(inputAS);
+
+        option2name.innerHTML="Current flow:";
+        var spinner = document.createElement('label');
+        spinner.for="spinner";
+        option2.appendChild(spinner);
+        var inputPUMP = document.createElement('input');
+        inputPUMP.id="spinner";
+        inputPUMP.name = "value";
+        spinner.appendChild(inputPUMP);
+    }
+    if(selected=="Sink")
+    {
+        selectedname.innerHTML = "SINK";
+        currentflow.innerHTML = "1";
+    }
+    if(selected=="Merger")
+    {
+        selectedname.innerHTML = "MERGER";
+        currentflow.innerHTML = "1";
+    }
+    if(selected=="Pipeline")
+    {
+        selectedname.innerHTML = "PIPELINE";
+        currentflow.innerHTML = "1";
+    }
+}
+
+
+
 
 
 
