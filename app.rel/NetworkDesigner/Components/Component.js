@@ -113,14 +113,14 @@ class Component extends Part {
     }
 
     RemovePipelines() {
-        linkedPipes = {};
+        let linkedPipes = {};
         linkedPipes.inputParts = this.inputParts;
         linkedPipes.outputParts = this.outputParts;
 
         var pipelines = this.outputParts.concat(this.inputParts);
 
-        for (let pipeline in pipelines)
-            pipeline.Detach();
+        for(let i=0; i<pipelines.length; i++)
+            pipelines[i].Detach();
 
 
         this.outputParts = [];

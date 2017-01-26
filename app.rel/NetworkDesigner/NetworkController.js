@@ -40,7 +40,7 @@ class NetworkController {
         } catch (e) {
             return false;
         }
-        
+
         // }
         // return _isDrawableResp;
     }
@@ -110,9 +110,9 @@ class NetworkController {
         return _modSettings;
     }
 
-    findPartByNodeKey(_nodeKey){
-        for(let i=0;i<this.Parts.length;i++){
-            if(this.Parts[i].nodeKey == _nodeKey){
+    findPartByNodeKey(_nodeKey) {
+        for (let i = 0; i < this.Parts.length; i++) {
+            if (this.Parts[i].nodeKey == _nodeKey) {
                 return this.Parts[i];
             }
         }
@@ -130,24 +130,40 @@ class NetworkController {
             return false;
         }
         // at least one of those
-        if (!isPipeline) {
+        if ((isPipeline != undefined && !isPipeline)
+            ||
+            (part instanceof Component)) {
             try { // try enables skipping the check for being a component by just assuming it is
-                let _listOfPLOutAndIn = part.RemoveAllPipelines(); //`returns {}.
-                ``
-                let _listOfPLMerged = _listOfPLOutAndIn.outputParts;
-                _listOfPLMerged.push(_listOfPLOutAndIn.inputParts);
 
-                for (let i = 0; i < _listOfPLOutAndIn.outputParts.length; i++) {
-                    updateConnections(_listOfPLOutAndIn.outputParts[i].outputParts[0]);
+                let _partIdsToDelete = [];
+                _partIdsToDelete.push(part.id);
+                for (let i = 0; i < part.outputParts.length; i++) {
+                    _partIdsToDelete.push(part.outputParts[i].id);
                 }
+                for (let i = 0; i < part.inputParts.length; i++) {
+                    _partIdsToDelete.push(part.inputParts[i].id);
+                }
+                let _listOfPLOutAndIn = part.RemovePipelines(); //`returns {}.
 
-                // removing all those pipelines from the list
-                if (_listOfPLMerged.length > 0) {
-                    for (let i = 0; i < _listOfPLMerged.length; i++) {
-                        this.removeFromList(_listOfPLMerged[i]);
-                    }
+                // let _listOfPLMerged = _listOfPLOutAndIn.outputParts;
+                // _listOfPLMerged.push(_listOfPLOutAndIn.inputParts);
+
+                // // for (let i = 0; i < _listOfPLOutAndIn.length; i++) {
+                // //     for (let j = 0; j < _listOfPLOutAndIn[i].outputParts.length; j++) {
+                // //         _listOfPLOutAndIn[i].outputParts[j].updateConnections(_listOfPLOutAndIn.outputParts[j].outputParts[0]);
+                // //     }
+                // // }
+
+                // // removing all those pipelines from the list
+                // if (_listOfPLMerged.length > 0) {
+                //     for (let i = 0; i < _listOfPLMerged.length; i++) {
+                //         this.removeFromList(_listOfPLMerged[i]);
+                //     }
+                // }
+                for(let i = 0; i<_partIdsToDelete.length;i++){
+                    _removeResult = this.removeFromList(_partIdsToDelete[i]);
                 }
-                _removeResult = this.removeFromList(part); // maybe something goes wrong, huh?
+                // maybe something goes wrong, huh?
             } catch (e) {
                 console.log("oups, something went wrong" + e)
                 _removeResult = false;
@@ -157,7 +173,7 @@ class NetworkController {
             // actually the pipeline is to be deleted
             if (part instanceof Pipeline) { // just to be sure
                 let detachResult = part.Detach();
-                _removeResult = this.removeFromList(part);
+                _removeResult = this.removeFromList(part.id);
 
             } else {
 
@@ -181,10 +197,10 @@ class NetworkController {
     // overloading is not nice for JS
 
     // removes a part from the list of parts
-    removeFromList(_partToDelete) {
+    removeFromList(_partToDeleteId) {
         let _indexToDelete = 0;
         for (let i = 0; i < this.Parts.length; i++) {
-            if (this.Parts[i].id == _partToDelete.Id) {
+            if (this.Parts[i].id == _partToDeleteId) {
                 _indexToDelete = i;
                 break;
             }

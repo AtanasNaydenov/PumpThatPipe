@@ -265,6 +265,7 @@ class MasterController {
     selectPart(_nodeKey) { // instead of x,y now it is a type and nodeKey
         let _detectedPart = this.CurrentNetworkCtrl.findPartByNodeKey(_nodeKey);
         if (_detectedPart != null) {
+            this.CurrentNetworkCtrl.setSelectedExistingPart(_detectedPart);
             this.setState(ProgramStateEnum.CANVASPARTSELECTED);
             console.log("detected a part:");
             console.dir(_detectedPart);

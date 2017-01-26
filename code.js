@@ -1,5 +1,10 @@
 var red = "orangered"; // 0 or false
 var green = "forestgreen"; // 1 or true
+var urgentCLR = "indianred";
+var alertedCLR = "lightsalmon";
+var warningCLR = "orangered";
+var safeCLR = "forestgreen";
+
 var counter = 1;
 
 var _MasterPTPControler = new MasterController();
@@ -16,7 +21,7 @@ function init() {
                 initialContentAlignment: go.Spot.Center,
                 allowDrop: true, // Nodes from the Palette can be dropped into the Diagram
                 "draggingTool.isGridSnapEnabled": true, // dragged nodes will snap to a grid of 10x10 cells
-                "undoManager.isEnabled": true
+                "undoManager.isEnabled": false
             });
 
     // when the document is modified, add a "*" to the title and enable the "Save" button
@@ -52,12 +57,12 @@ function init() {
             _MasterPTPControler.createPart(PartTypeEnum.PUMP, _nodeKey);
             let _res = _MasterPTPControler.addPart();
             // alert("this is a part!"
-                // + _MasterPTPControler.CurrentNetworkCtrl.
-                //     Parts[
-                // _MasterPTPControler
-                //     .CurrentNetworkCtrl
-                //     .Parts.length - 1
-                // ]);
+            // + _MasterPTPControler.CurrentNetworkCtrl.
+            //     Parts[
+            // _MasterPTPControler
+            //     .CurrentNetworkCtrl
+            //     .Parts.length - 1
+            // ]);
 
         }
         //alert("this is a sink");
@@ -68,12 +73,12 @@ function init() {
             _MasterPTPControler.createPart(PartTypeEnum.MERGER, _nodeKey);
             let _res = _MasterPTPControler.addPart();
             // alert("this is a part!"
-                // + _MasterPTPControler.CurrentNetworkCtrl.
-                //     Parts[
-                // _MasterPTPControler
-                //     .CurrentNetworkCtrl
-                //     .Parts.length - 1
-                // ]);
+            // + _MasterPTPControler.CurrentNetworkCtrl.
+            //     Parts[
+            // _MasterPTPControler
+            //     .CurrentNetworkCtrl
+            //     .Parts.length - 1
+            // ]);
 
         }
 
@@ -83,12 +88,12 @@ function init() {
             _MasterPTPControler.createPart(PartTypeEnum.SPLITTER, _nodeKey);
             let _res = _MasterPTPControler.addPart();
             // alert("this is a part!"
-                // + _MasterPTPControler.CurrentNetworkCtrl.
-                //     Parts[
-                // _MasterPTPControler
-                //     .CurrentNetworkCtrl
-                //     .Parts.length - 1
-                // ]);
+            // + _MasterPTPControler.CurrentNetworkCtrl.
+            //     Parts[
+            // _MasterPTPControler
+            //     .CurrentNetworkCtrl
+            //     .Parts.length - 1
+            // ]);
 
         }
 
@@ -98,12 +103,12 @@ function init() {
             _MasterPTPControler.createPart(PartTypeEnum.ADJUSTABLE_SPLITTER, _nodeKey);
             let _res = _MasterPTPControler.addPart();
             // alert("this is a part!"
-                // + _MasterPTPControler.CurrentNetworkCtrl.
-                //     Parts[
-                // _MasterPTPControler
-                //     .CurrentNetworkCtrl
-                //     .Parts.length - 1
-                // ]);
+            // + _MasterPTPControler.CurrentNetworkCtrl.
+            //     Parts[
+            // _MasterPTPControler
+            //     .CurrentNetworkCtrl
+            //     .Parts.length - 1
+            // ]);
 
         }
 
@@ -114,12 +119,12 @@ function init() {
             _MasterPTPControler.createPart(PartTypeEnum.SINK, _nodeKey);
             let _res = _MasterPTPControler.addPart();
             // alert("this is a sink!"
-                // + _MasterPTPControler.CurrentNetworkCtrl.
-                //     Parts[
-                // _MasterPTPControler
-                //     .CurrentNetworkCtrl
-                //     .Parts.length - 1
-                // ]);
+            // + _MasterPTPControler.CurrentNetworkCtrl.
+            //     Parts[
+            // _MasterPTPControler
+            //     .CurrentNetworkCtrl
+            //     .Parts.length - 1
+            // ]);
 
         }
         //alert("this is a sink");
@@ -128,21 +133,23 @@ function init() {
         console.dir(_MasterPTPControler.CurrentNetworkCtrl.Parts[_MasterPTPControler.CurrentNetworkCtrl.Parts.length - 1]);
         console.log("check out all the parts now:");
         console.dir(_MasterPTPControler.CurrentNetworkCtrl.Parts);
-        
-        
-        
+
+        // displays annotations
+        DisplayCompIntro(palette.selection.Da.key.ei);
+
+
         console.log(palette.click);
     });
 
-    
+
     // Placing pipes
 
     myDiagram.addDiagramListener("LinkDrawn", function (e) {
         let link = e.subject;
-        console.log("new link is created with id" + link.__gohashid );
+        console.log("new link is created with id" + link.__gohashid);
         console.dir(link);
 
-        _MasterPTPControler.createPart(PartTypeEnum.PIPELINE,link.__gohashid);
+        _MasterPTPControler.createPart(PartTypeEnum.PIPELINE, link.__gohashid);
         _MasterPTPControler.connectPipeline(link.fromNode.__gohashid); // start
         _MasterPTPControler.connectPipeline(link.toNode.__gohashid); // end
         // should be done
@@ -150,15 +157,15 @@ function init() {
         console.dir(_MasterPTPControler.CurrentNetworkCtrl.Parts);
         //lowlight();
     });
-    
-    
+
+
     //ChangedSelection
 
     myDiagram.addDiagramListener("ObjectSingleClicked", function (e) {
         // if (myDiagram.selection.Da.key.ei == "sink")
         //     alert("this is a sink");
-        let _TempNodeKey = myDiagram.selection.Da.key.__gohashid; // this does not work...
-        console.log("You have clicked on a component. The node key is:"+_TempNodeKey);
+        let _TempNodeKey = myDiagram.selection.Da.key.__gohashid; // this does  work!
+        console.log("You have clicked on a component. The node key is:" + _TempNodeKey);
         _MasterPTPControler.selectPart(_TempNodeKey);
         let _selectedData = _MasterPTPControler.findPartOfNode(_TempNodeKey);
 
@@ -168,13 +175,26 @@ function init() {
 
 
     // IN PROGRESS
-     myDiagram.addDiagramListener("SelectionDeleting", function (e) {
+    myDiagram.addDiagramListener("SelectionDeleting", function (e) {
         console.log("deleting");
-        console.dir(e);
+        let _TempNodeKey = myDiagram.selection.Da.key.__gohashid;
+        _MasterPTPControler.selectPart(_TempNodeKey);
+        _MasterPTPControler.removeSelectedPart();
+        //let _deletingNodeKey = myDiagram.selection.Da.key.__gohashid;
+        //let _partToDelete = _MasterPTPControler.findPartOfNode(_deletingNodeKey);
+
+    });
+    myDiagram.addDiagramListener("SelectionDeleted", function (e) {
+        console.log("deleted");
+        console.dir(_MasterPTPControler);
     });
 
-    
 
+    palette.addDiagramListener("ObjectSingleClicked", function (e) {
+        //alert("fuck");
+        console.log(palette.selection.Da.key.ei);
+        DisplayCompIntro(palette.selection.Da.key.ei);
+    });
 
 
 
@@ -198,6 +218,7 @@ function init() {
             }));
 
     // node template helpers, the comments that appear if you hover over a component
+    myDiagram.toolManager.hoverDelay = 200;
     var sharedToolTip =
         $(go.Adornment, "Auto",
             $(go.Shape, "RoundedRectangle", {
@@ -207,7 +228,10 @@ function init() {
                 margin: 2
             },
                 new go.Binding("text", "", function (d) {
-                    return d.category;
+                    console.dir(d);
+                    console.log(d.__gohashid + "for some reason - 1");
+                    console.log(_MasterPTPControler.findPartOfNode(d.__gohashid + 1).currentAmount);
+                    return "Amount: " + _MasterPTPControler.findPartOfNode(d.__gohashid + 1).currentAmount;
                 })));
 
     // define some common property settings
@@ -414,7 +438,7 @@ function loop() {
 //and interact with the undo property
 function updateStates() {
     var oldskip = myDiagram.skipsUndoManager;
-    myDiagram.skipsUndoManager = true;
+    myDiagram.skipsUndoManager = false;
 
     // drawing again the nodes
     myDiagram.nodes.each(function (node) {

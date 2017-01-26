@@ -12,12 +12,28 @@ const Pipe_states = {
     URGENT: 'URGENT' // current_amount > 100% of maxflow
 };
 
+
+
+
 class Pipeline extends Part {
     constructor(curflow, nodeKey) {
         super(1, 1, nodeKey); // this is constantly 1,1
         this.currentflow = curflow;
         // Pipeline.LocSetMaxflow(); -> this is not supposed to be here
         this.UpdateState();
+    }
+
+    static getState(flow) {
+        if (flow > Pipeline.maxflow) // the problem was here - now we use the camelcase to refer to PL.maxFlow
+            return Pipe_states.URGENT;
+        else
+            if (flow > 0.8 * Pipeline.maxflow && flow <= Pipeline.maxflow) // this.currentflow <= this.maxflow otherwise if cur = max it's considered safe
+                return Pipe_states.WARNING;
+            else
+                if (flow > 0.5 * Pipeline.maxflow && flow <= 0.8 * Pipeline.maxflow)
+                    return Pipe_states.ALERTED;
+                else
+                    return Pipe_states.SAFE;
     }
 
     UpdateState() {
@@ -51,7 +67,7 @@ class Pipeline extends Part {
         return this.outputParts[0];
     }
     Detach() {
-        
+
         console.log(this.StartComponent.RemoveOutput(this));
         // console.log("sc")
         // console.log(this.StartComponent);
@@ -59,8 +75,8 @@ class Pipeline extends Part {
         // console.log("ec");
         // console.log(this.EndComponent);
         this.EndComponent.RemoveInput(this);
-        console.log("this");  
-        console.log(this);      
+        console.log("this");
+        console.log(this);
         this.updateConnections(this.outputParts[0]);
 
         this.outputParts = [];
@@ -82,13 +98,13 @@ class Pipeline extends Part {
                 // safely return a blocking result
                 return 'halted';
             }
-        }catch(e){
-            return [e,"excpetion"];
+        } catch (e) {
+            return [e, "excpetion"];
         }
-        
+
     }
     //TO DO
-    Swap(){}
+    Swap() { }
 
     // added those methods to for an ~easy~ (yeah, sure...) workaround 
     // this works like global SetMaxflow method - which is not very nice to have, 
@@ -108,11 +124,11 @@ class Pipeline extends Part {
     }
 
     // to get the starting component easily
-    get StartComponent(){
+    get StartComponent() {
         return this.inputParts[0];
     }
 
-    get EndComponent(){
+    get EndComponent() {
         return this.outputParts[0];
     }
 
@@ -121,5 +137,7 @@ class Pipeline extends Part {
 
     }
 }
+Pipeline.maxflow = 20; // by default
+
 
 // export { SetMaxflow, Pipeline, Pipe_states };
