@@ -1,11 +1,11 @@
-//for network processes
-import { Part } from "./Components/Part";
-import { Pipeline, SetMaxflow, Pipe_states } from "./Components/Pipeline";
-import { Component } from "./Components/Component";
-import { Splitter } from "./Components/Splitter";
-import { AdjustableSplitter } from "./Components/Adjustable_Splitter";
-import { Merger } from "./Components/Merger";
-import { Pump } from "./Components/Pump";
+// //for network processes
+// import { Part } from "./Components/Part";
+// import { Pipeline, SetMaxflow, Pipe_states } from "./Components/Pipeline";
+// import { Component } from "./Components/Component";
+// import { Splitter } from "./Components/Splitter";
+// import { AdjustableSplitter } from "./Components/Adjustable_Splitter";
+// import { Merger } from "./Components/Merger";
+// import { Pump } from "./Components/Pump";
 
 
 
@@ -73,7 +73,7 @@ class NetworkController {
         if (comp1.AddOutput(this.SelectedTemplatePart) &&
             comp2.AddInput(this.SelectedTemplatePart)) {
             console.log("both connected components added");
-
+            this.SelectedTemplatePart.updateConnections(this.SelectedTemplatePart.outputParts[0]);
             this.addPartToList(this.SelectedTemplatePart);
             this.SelectedTemplatePart = {};
             console.log(this.Parts);
@@ -109,6 +109,16 @@ class NetworkController {
         }
         return _modSettings;
     }
+
+    findPartByNodeKey(_nodeKey){
+        for(let i=0;i<this.Parts.length;i++){
+            if(this.Parts[i].nodeKey == _nodeKey){
+                return this.Parts[i];
+            }
+        }
+        return null;
+    }
+
 
     // attempts to remove a given component 
     remove(part, isPipeline) {
@@ -267,4 +277,4 @@ class NetworkController {
 
 }
 
-export { NetworkController, NCCounter_FigGlobal }
+// export { NetworkController, NCCounter_FigGlobal }

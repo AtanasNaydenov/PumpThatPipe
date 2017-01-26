@@ -20,7 +20,7 @@ let _MC = new MasterController();
 
 describe("Master Controller tests", function () {
     // to be called when you select a new component to put 
-    it.only("Adds a new Pump to the network controller ", function () {
+    it("Adds a new Pump to the network controller ", function () {
         let _typeint = PartTypeEnum.PUMP;
         let _part = _MC.createPart(_typeint);
         expect(_part).to.be.instanceof(Pump);
@@ -29,7 +29,7 @@ describe("Master Controller tests", function () {
         // just to cleariy the actions afterwards
         _MC.setState(ProgramStateEnum.IDLE);
     });
-    it.only("Puts a new Pump to the network controller ", function () {
+    it("Puts a new Pump to the network controller ", function () {
         let _typeint = PartTypeEnum.PUMP;
         let _part = _MC.createPart(_typeint);
         let _res = _MC.addPart();
@@ -40,7 +40,7 @@ describe("Master Controller tests", function () {
         // expect().to.be.equal();
     });
 
-    it.only("Reinitializes the NetworkController", function () {
+    it("Reinitializes the NetworkController", function () {
         _MC.createNewNetwork(); // trying to reinitilize, since a singleton, only the newtworkctrl should be created
 
         expect(_MC.CurrentNetworkCtrl).to.have.property('Name', 'NC_' + NCCounter_FigGlobal);
@@ -49,7 +49,7 @@ describe("Master Controller tests", function () {
     });
 
 
-    it.only("Puts a bunch (5) of new components to the network controller", function () {
+    it("Puts a bunch (5) of new components to the network controller", function () {
 
         let _typeint = PartTypeEnum.PUMP;
         let _part = _MC.createPart(_typeint);

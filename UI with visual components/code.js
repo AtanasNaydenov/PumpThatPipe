@@ -1,6 +1,11 @@
 var red = "orangered"; // 0 or false
 var green = "forestgreen"; // 1 or true
-var counter=1;
+var counter = 1;
+
+var _MasterPTPControler = new MasterController();
+
+
+
 
 function init() {
     var $ = go.GraphObject.make; // for conciseness in defining templates
@@ -15,7 +20,7 @@ function init() {
             });
 
     // when the document is modified, add a "*" to the title and enable the "Save" button
-    myDiagram.addDiagramListener("Modified", function(e) {
+    myDiagram.addDiagramListener("Modified", function (e) {
         var button = document.getElementById("saveModel");
         if (button) button.disabled = !myDiagram.isModified;
         var idx = document.title.indexOf("*");
@@ -28,38 +33,164 @@ function init() {
 
     var palette = new go.Palette("palette");  // create a new Palette in the HTML DIV element "palette"
 
-    myDiagram.addDiagramListener("ExternalObjectsDropped", function(e) {
-            //alert("i have big boobs");
-        console.dir(myDiagram.selection.Da.key.ei);
-        myDiagram.selection.ourkey=counter;
-        counter++;
-        console.dir(myDiagram.selection);
-        if(palette.selection.Da.key.ei=="sink")
-            alert("this is a sink");
-        console.log(palette.click);
-        });
+    // Adding components
 
+    myDiagram.addDiagramListener("ExternalObjectsDropped", function (e) {
+        //alert("i have big boobs");
+        console.dir(myDiagram.selection.Da.key.ei);
+        //myDiagram.selection.ourkey = counter;
+        console.log("this is our node key:" + myDiagram.selection.Da.key.__gohashid); // we use gohash
+        //counter++;
+        console.dir(myDiagram.selection);
+
+        // required to drop everything
+        _MasterPTPControler.setState(ProgramStateEnum.IDLE);
+
+        if (palette.selection.Da.key.ei == "pump") {
+
+            let _nodeKey = myDiagram.selection.Da.key.__gohashid;
+            _MasterPTPControler.createPart(PartTypeEnum.PUMP, _nodeKey);
+            let _res = _MasterPTPControler.addPart();
+            // alert("this is a part!"
+                // + _MasterPTPControler.CurrentNetworkCtrl.
+                //     Parts[
+                // _MasterPTPControler
+                //     .CurrentNetworkCtrl
+                //     .Parts.length - 1
+                // ]);
+
+        }
+        //alert("this is a sink");
+
+        if (palette.selection.Da.key.ei == "merger") {
+
+            let _nodeKey = myDiagram.selection.Da.key.__gohashid;
+            _MasterPTPControler.createPart(PartTypeEnum.MERGER, _nodeKey);
+            let _res = _MasterPTPControler.addPart();
+            // alert("this is a part!"
+                // + _MasterPTPControler.CurrentNetworkCtrl.
+                //     Parts[
+                // _MasterPTPControler
+                //     .CurrentNetworkCtrl
+                //     .Parts.length - 1
+                // ]);
+
+        }
+
+        if (palette.selection.Da.key.ei == "splitter") {
+
+            let _nodeKey = myDiagram.selection.Da.key.__gohashid;
+            _MasterPTPControler.createPart(PartTypeEnum.SPLITTER, _nodeKey);
+            let _res = _MasterPTPControler.addPart();
+            // alert("this is a part!"
+                // + _MasterPTPControler.CurrentNetworkCtrl.
+                //     Parts[
+                // _MasterPTPControler
+                //     .CurrentNetworkCtrl
+                //     .Parts.length - 1
+                // ]);
+
+        }
+
+        if (palette.selection.Da.key.ei == "asplitter") {
+
+            let _nodeKey = myDiagram.selection.Da.key.__gohashid;
+            _MasterPTPControler.createPart(PartTypeEnum.ADJUSTABLE_SPLITTER, _nodeKey);
+            let _res = _MasterPTPControler.addPart();
+            // alert("this is a part!"
+                // + _MasterPTPControler.CurrentNetworkCtrl.
+                //     Parts[
+                // _MasterPTPControler
+                //     .CurrentNetworkCtrl
+                //     .Parts.length - 1
+                // ]);
+
+        }
+
+
+        if (palette.selection.Da.key.ei == "sink") {
+
+            let _nodeKey = myDiagram.selection.Da.key.__gohashid;
+            _MasterPTPControler.createPart(PartTypeEnum.SINK, _nodeKey);
+            let _res = _MasterPTPControler.addPart();
+            // alert("this is a sink!"
+                // + _MasterPTPControler.CurrentNetworkCtrl.
+                //     Parts[
+                // _MasterPTPControler
+                //     .CurrentNetworkCtrl
+                //     .Parts.length - 1
+                // ]);
+
+        }
+        //alert("this is a sink");
+
+        console.log("a part was created!!!! here it is");
+        console.dir(_MasterPTPControler.CurrentNetworkCtrl.Parts[_MasterPTPControler.CurrentNetworkCtrl.Parts.length - 1]);
+        console.log("check out all the parts now:");
+        console.dir(_MasterPTPControler.CurrentNetworkCtrl.Parts);
+        
+        
+        
+        console.log(palette.click);
+    });
+
+    
+    // Placing pipes
+
+    myDiagram.addDiagramListener("LinkDrawn", function (e) {
+        let link = e.subject;
+        console.log("new link is created with id" + link.__gohashid );
+        console.dir(link);
+
+        _MasterPTPControler.createPart(PartTypeEnum.PIPELINE,link.__gohashid);
+        _MasterPTPControler.connectPipeline(link.fromNode.__gohashid); // start
+        _MasterPTPControler.connectPipeline(link.toNode.__gohashid); // end
+        // should be done
+        console.log("finely added a pipeline, take a look at all the parts nowL: ");
+        console.dir(_MasterPTPControler.CurrentNetworkCtrl.Parts);
+        //lowlight();
+    });
+    
+    
     //ChangedSelection
 
-    myDiagram.addDiagramListener("ObjectSingleClicked", function(e) {
-        if(palette.selection.Da.key.ei=="sink")
-            alert("this is a sink");
+    myDiagram.addDiagramListener("ObjectSingleClicked", function (e) {
+        // if (myDiagram.selection.Da.key.ei == "sink")
+        //     alert("this is a sink");
+        let _TempNodeKey = myDiagram.selection.Da.key.__gohashid; // this does not work...
+        console.log("You have clicked on a component. The node key is:"+_TempNodeKey);
+        _MasterPTPControler.selectPart(_TempNodeKey);
     });
+
+
+
+    // IN PROGRESS
+     myDiagram.addDiagramListener("SelectionDeleted", function (e) {
+        // if (myDiagram.selection.Da.key.ei == "sink")
+        //     alert("this is a sink");
+        let _TempNodeKey = myDiagram.selection.Da.key.__gohashid; // this does not work...
+        console.log("You have clicked on a component. The node key is:"+_TempNodeKey);
+        _MasterPTPControler.selectPart(_TempNodeKey);
+    });
+
+    
+
+
 
 
     // creates relinkable Links that will avoid crossing Nodes when possible and will jump over other Links in their paths
     myDiagram.linkTemplate =
         $(go.Link, {
-                routing: go.Link.AvoidsNodes,
-                curve: go.Link.JumpOver,
-                corner: 3,
-                relinkableFrom: true,
-                relinkableTo: true,
-                selectionAdorned: false, // Links are not adorned when selected so that their color remains visible.
-                shadowOffset: new go.Point(0, 0),
-                shadowBlur: 5,
-                shadowColor: "orange",
-            },
+            routing: go.Link.AvoidsNodes,
+            curve: go.Link.JumpOver,
+            corner: 3,
+            relinkableFrom: false,   //let's make it false just for now?
+            relinkableTo: false,     //let's make it false just for now?
+            selectionAdorned: false, // Links are not adorned when selected so that their color remains visible.
+            shadowOffset: new go.Point(0, 0),
+            shadowBlur: 5,
+            shadowColor: "orange",
+        },
             new go.Binding("isShadowed", "isSelected").ofObject(),
             $(go.Shape, {
                 name: "SHAPE",
@@ -73,23 +204,23 @@ function init() {
                 fill: "lightyellow"
             }),
             $(go.TextBlock, {
-                    margin: 2
-                },
-                new go.Binding("text", "", function(d) {
+                margin: 2
+            },
+                new go.Binding("text", "", function (d) {
                     return d.category;
                 })));
 
     // define some common property settings
     function nodeStyle() {
         return [new go.Binding("location", "loc", go.Point.parse).makeTwoWay(go.Point.stringify),
-            new go.Binding("isShadowed", "isSelected").ofObject(),
-            {
-                selectionAdorned: false,
-                shadowOffset: new go.Point(0, 0),
-                shadowBlur: 20,
-                shadowColor: "orange",
-                toolTip: sharedToolTip
-            }
+        new go.Binding("isShadowed", "isSelected").ofObject(),
+        {
+            selectionAdorned: false,
+            shadowOffset: new go.Point(0, 0),
+            shadowBlur: 20,
+            shadowColor: "orange",
+            toolTip: sharedToolTip
+        }
         ];
     }
 
@@ -247,20 +378,20 @@ function init() {
     palette.nodeTemplateMap = myDiagram.nodeTemplateMap;
 
     palette.model.nodeDataArray = [{
-            category: "pump"
-        },
-        {
-            category: "merger"
-        },
-        {
-            category: "splitter"
-        },
-        {
-            category: "asplitter"
-        },
-        {
-            category: "sink"
-        }
+        category: "pump"
+    },
+    {
+        category: "merger"
+    },
+    {
+        category: "splitter"
+    },
+    {
+        category: "asplitter"
+    },
+    {
+        category: "sink"
+    }
     ];
 
     // load the initial diagram
@@ -272,7 +403,7 @@ function init() {
 
 // update the diagram every 250 milliseconds
 function loop() {
-    setTimeout(function() {
+    setTimeout(function () {
         updateStates();
         loop();
     }, 250);
@@ -286,7 +417,7 @@ function updateStates() {
     myDiagram.skipsUndoManager = true;
 
     // drawing again the nodes
-    myDiagram.nodes.each(function(node) {
+    myDiagram.nodes.each(function (node) {
         switch (node.category) {
             case "pump":
                 doPump(node);
@@ -316,7 +447,7 @@ function linkIsTrue(link) { // assume the given Link has a Shape named "SHAPE"
 //!!!!!!!!!!!!!HERE WILL BE CHANGED THE COLOR OF PIPELINES
 // helper function for propagating results
 function setOutputLinks(node, color) {
-    node.findLinksOutOf().each(function(link) {
+    node.findLinksOutOf().each(function (link) {
         link.findObject("SHAPE").stroke = color;
     });
 }
@@ -377,9 +508,9 @@ function download(filename, text) {
 }
 
 function getTheFile() {
-    document.getElementById("openFile").addEventListener('change', function() {
+    document.getElementById("openFile").addEventListener('change', function () {
         var fr = new FileReader();
-        fr.onload = function() {
+        fr.onload = function () {
             document.getElementById("mySavedModel").innerHTML = this.result;
             load();
         }
@@ -391,9 +522,8 @@ function load() {
 }
 
 
-function Delete()
-{
-    myDiagram.allowDelete=true;
+function Delete() {
+    myDiagram.allowDelete = true;
     myDiagram.commandHandler.deleteSelection();
-    myDiagram.allowDelete=false;
+    myDiagram.allowDelete = false;
 }
