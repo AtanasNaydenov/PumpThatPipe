@@ -66,8 +66,7 @@ function ShowSettings(evt, selectedtab) {
 
 
 
-function ShowSelectedComponentInfo(selected)
-{
+function ShowSelectedComponentInfo(selected) {
     document.getElementById("defaultTab").click();
     var selectedname = document.getElementById("selectedName");
     var currentflow = document.getElementById("currentFlow");
@@ -75,21 +74,20 @@ function ShowSelectedComponentInfo(selected)
     var option1 = document.getElementById("option1");
     var option2name = document.getElementById("option2name");
     var option2 = document.getElementById("option2");
-    var flow= 0;
+    var flow = 0;
 
-    if(selected instanceof Component){
+    if (selected instanceof Component) {
         flow = selected.currentAmount;
     }
-    if(selected instanceof AdjustableSplitter)
-    {
+    if (selected instanceof AdjustableSplitter) {
         selectedname.innerHTML = "ADJUSTABLE SPLITTER";
         currentflow.innerHTML = "Current flow: " + selected.currentAmount;
 
-        option1.innerHTML='';
-        option1name.innerHTML="Upper outflow %:";
+        option1.innerHTML = '';
+        option1name.innerHTML = "Upper outflow %:";
         var input = document.createElement('input');
         input.max = 100;
-        input.min=0;
+        input.min = 0;
         input.type = "number";
         option1.appendChild(input);
         //var slider = document.createElement('div');
@@ -100,39 +98,39 @@ function ShowSelectedComponentInfo(selected)
         //handle.className="ui-slider-handle";
         //slider.appendChild(handle);
 
-        option2name.innerHTML='';
-        option2.innerHTML='';
+        option2name.innerHTML = '';
+        option2.innerHTML = '';
     }
-    else if(selected instanceof Splitter)
-    {
+    else if (selected instanceof Splitter) {
         selectedname.innerHTML = "SPLITTER";
         currentflow.innerHTML = "Current flow: " + selected.currentAmount;
-        option1name.innerHTML='';
-        option1.innerHTML='';
-        option2name.innerHTML='';
-        option2.innerHTML='';
+        option1name.innerHTML = '';
+        option1.innerHTML = '';
+        option2name.innerHTML = '';
+        option2.innerHTML = '';
     }
 
-    else if(selected instanceof Pump)
-    {
+    else if (selected instanceof Pump) {
         selectedname.innerHTML = "PUMP";
         currentflow.innerHTML = "Current flow: " + selected.currentAmount;
 
-        option1.innerHTML='';
-        option1name.innerHTML="Set Max flow:";
+        option1.innerHTML = '';
+        option1name.innerHTML = "Set Max flow:";
         var maxflow = document.createElement("input");
+        maxflow.id="pumpcap";
         maxflow.type = "number";
-        maxflow.min=0;
-        maxflow.value=selected.GetMaximumFlow();
+        maxflow.min = 0;
+        maxflow.value = selected.GetMaximumFlow();
         option1.appendChild(maxflow);
 
-        option2.innerHTML='';
-        option2name.innerHTML="Adjust current flow:";
+        option2.innerHTML = '';
+        option2name.innerHTML = "Adjust current flow:";
         var curflow = document.createElement("input");
         curflow.type = "number";
-        curflow.min=0;
-        curflow.max= selected.GetMaximumFlow();
-        curflow.value=selected.currentAmount;
+        curflow.id="curram";
+        curflow.min = 0;
+        curflow.max = selected.GetMaximumFlow();
+        curflow.value = selected.currentAmount;
         option2.appendChild(curflow);
 
         // --in case of jquery usage
@@ -150,44 +148,64 @@ function ShowSelectedComponentInfo(selected)
         // inputPUMP.name = "value";
         // spinner.appendChild(inputPUMP);
     }
-    else if(selected instanceof Sink)
-    {
+    else if (selected instanceof Sink) {
 
         selectedname.innerHTML = "SINK";
         currentflow.innerHTML = "Current flow: " + selected.currentAmount;
-        option1name.innerHTML='';
-        option1.innerHTML='';
-        option2name.innerHTML='';
-        option2.innerHTML='';
+        option1name.innerHTML = '';
+        option1.innerHTML = '';
+        option2name.innerHTML = '';
+        option2.innerHTML = '';
     }
 
-   else if(selected instanceof Merger)
-    {
+    else if (selected instanceof Merger) {
 
         selectedname.innerHTML = "MERGER";
         currentflow.innerHTML = "Current flow: " + selected.currentAmount;
-        option1name.innerHTML='';
-        option1.innerHTML='';
-        option2name.innerHTML='';
-        option2.innerHTML='';
+        option1name.innerHTML = '';
+        option1.innerHTML = '';
+        option2name.innerHTML = '';
+        option2.innerHTML = '';
     }
 
-   else  if(selected instanceof Pipeline)
-    {
-        flow= selected.currentflow;
+    else if (selected instanceof Pipeline) {
+        flow = selected.currentflow;
         selectedname.innerHTML = "PIPELINE";
         currentflow.innerHTML = "Current flow: " + flow;
-        option1name.innerHTML='Pipeline sate: '+ selected.state;
-        option1.innerHTML='';
-        option2name.innerHTML='';
-        option2.innerHTML='';
+        option1name.innerHTML = 'Pipeline sate: ' + selected.state;
+        option1.innerHTML = '';
+        option2name.innerHTML = '';
+        option2.innerHTML = '';
     }
 }
 
+function ModifyGlobalSettings() {
 
 
+    let pipemax =  document.getElementById('pipelinecap').value;
+    let _settings = {
+        "_newPipelineMaxFlow": pipemax, // put value here
+        // "_newPumpMaxFlow": 13, // put another value here
+    };
+    _MasterPTPControler.updateSettings(_settings);
+    console.log("global settings updated");
+    console.dir(_MasterPTPControler);
 
 
+}
+
+function NewSettings(){
+    if(_MasterPTPControler.CurrentNetworkCtrl.SelectedExistingPart instanceof Pump){
+        
+        let settings = {};
+        settings.maxcap = document.getElementById('pumpcap').value;
+        settings.currentamount = document.getElementById('curram').value;
+        _MasterPTPControler.modifySelectedPart(settings);
+        var div = document.getElementById("current");
+        div.style.display = 'none';
+
+    }
+}
 
 
 

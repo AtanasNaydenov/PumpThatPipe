@@ -79,7 +79,7 @@
                    <br>
 
                 <input id="deleteComp" class="DelSaveBtn" type="button" value="Delete" onclick="Delete()"/>
-                <input id="saveComp" class="DelSaveBtn" type="button" value="Save" onclick=""/>
+                <input id="saveComp" class="DelSaveBtn" type="button" value="Save" onclick="NewSettings()"/>
 
             </div>
 
@@ -91,11 +91,11 @@
                        <p>Adjust pipeline capacity for the network:</p>
                    </td>
                    <td>
-                       <input type="number"  min=1 name="value" value="10"><!--value should be current capacity-->
+                       <input type="number" id="pipelinecap" min=1 name="value" value="10"><!--value should be current capacity-->
                    </td>
                </table>
 
-                <input class="DelSaveBtn" type="button" value="Update" onclick=""/><!--saves the new capacity for pipelines*/-->
+                <input class="DelSaveBtn" type="button" value="Update" onclick="ModifyGlobalSettings()"/><!--saves the new capacity for pipelines*/-->
             </div>
 
         </div>

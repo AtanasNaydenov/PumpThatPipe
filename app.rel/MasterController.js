@@ -297,25 +297,36 @@ class MasterController {
     modifySelectedPart(settings) { // where settings is a object (in JSON format) with the properties to be modified
         if (this.ProgramState == ProgramStateEnum.CANVASPARTSELECTED) {
 
-            let _tempUpdateUnit = {};
-            // to make sure the sent object contains relevant values
-            for (var key in settings) {
-                if (p.hasOwnProperty(key)) {
-                    console.log(key + " -> " + p[key]);
-                    _tempUpdateUnit[key] = p[key];
-                }
-            }
+            // let _tempUpdateUnit = {};
+            // // to make sure the sent object contains relevant values
+            // for (var key in settings) {
+            //     if (p.hasOwnProperty(key)) {
+            //         console.log(key + " -> " + p[key]);
+            //         _tempUpdateUnit[key] = p[key];
+            //     }
+            // }
             let _selectedPart = this.CurrentNetworkCtrl.SelectedExistingPart;
             try {
-                let _res = this.CurrentNetworkCtrl.updateExistingSelectedPart(_tempUpdateUnit);
-                if (_res) {
-                    console.log("successfully updated");
-                    //this.updateCanvas();
-                    this.setState(ProgramStateEnum.IDLE);
+                // let _res = this.CurrentNetworkCtrl.updateExistingSelectedPart(_tempUpdateUnit);
+                // if (_res) {
+                //     console.log("successfully updated");
+                //     //this.updateCanvas();
+                //     this.setState(ProgramStateEnum.IDLE);
 
-                } else {
-                    console.log(_selectedPart + " -> could not be updated for some reason");
-                    this.setState(ProgramStateEnum.IDLE);
+                // } else {
+                //     console.log(_selectedPart + " -> could not be updated for some reason");
+                //     this.setState(ProgramStateEnum.IDLE);
+                // }
+
+                if(_selectedPart instanceof Pump){
+                    if(settings.hasOwnProperty("maxcap")){
+                        Pump.SetMaximumFlow(settings.maxcap);
+                        _selectedPart.SetOutflow(_selectedPart.GetOutflow);
+                    }
+                    if(settings.hasOwnProperty("currentamount")){
+                        _selectedPart.SetOutflow(settings.currentamount);
+                        _selectedPart.outputParts[0].updateConnections(_selectedPart.outputParts[0]);
+                    }
                 }
             } catch (e) {
                 console.log(e);

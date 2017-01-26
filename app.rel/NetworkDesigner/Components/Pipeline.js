@@ -131,6 +131,15 @@ class Pipeline extends Part {
     get EndComponent() {
         return this.outputParts[0];
     }
+    
+    get state(){
+        this.UpdateState();
+        return this._State;
+    }
+
+    set state(value){
+        this._State = value;
+    }
 
     Swap() { }
     Contains(x, y) {

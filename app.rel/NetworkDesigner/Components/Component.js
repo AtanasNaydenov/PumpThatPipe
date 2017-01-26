@@ -31,7 +31,7 @@ class Component extends Part {
         for (let i = 0; i < this.inputParts.length; i++) {
             // console.log("getting inflow");
             // console.dir(this.inputParts[i]);
-            sum = sum + this.inputParts[i].currentflow;
+            sum = sum + parseInt(this.inputParts[i].currentflow);
         }
 
         return sum;
