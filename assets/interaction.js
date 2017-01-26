@@ -102,7 +102,6 @@ function ShowSettings(evt, selectedtab)
     document.getElementById(selectedtab).style.display = "block";
     evt.currentTarget.className += " active";
 
-    document.getElementById("currentFlow").innerHTML = "7";
 }
 
 
@@ -115,60 +114,107 @@ function ShowSelectedComponentInfo(selected)
     var option1 = document.getElementById("option1");
     var option2name = document.getElementById("option2name");
     var option2 = document.getElementById("option2");
-    if(selected=="Asplitter")
+    var flow= selected.currentflow;
+
+
+    if(selected instanceof AdjustableSplitter)
     {
         selectedname.innerHTML = "ADJUSTABLE SPLITTER";
-        currentflow.innerHTML = "1";
-        option1name.innerHTML="Upper outflow:";
+        currentflow.innerHTML = "Current flow: " + selected.currentAmount;
 
-        var slider = document.createElement('div');
-        slider.id="slider";
-        option1.appendChild(slider);
-        var handle = document.createElement('div');
-        handle.id="custom-handle";
-        handle.className="ui-slider-handle";
-        slider.appendChild(handle);
+        option1.innerHTML='';
+        option1name.innerHTML="Upper outflow in %:";
+        var input = document.createElement('input');
+        input.max = 100;
+        input.min=0;
+        input.type = "number";
+        option1.appendChild(input);
+        //var slider = document.createElement('div');
+        //slider.id="slider";
+        //option1.appendChild(slider);
+        //var handle = document.createElement('div');
+        //handle.id="custom-handle";
+        //handle.className="ui-slider-handle";
+        //slider.appendChild(handle);
 
+        option2name.innerHTML='';
+        option2.innerHTML='';
     }
-    if(selected=="Splitter")
+    else if(selected instanceof Splitter)
     {
         selectedname.innerHTML = "SPLITTER";
-        currentflow.innerHTML = "1";
+        currentflow.innerHTML = "Current flow: " + selected.currentAmount;
+        option1name.innerHTML='';
+        option1.innerHTML='';
+        option2name.innerHTML='';
+        option2.innerHTML='';
     }
-    if(selected=="Pump")
+    else if(selected instanceof Pump)
     {
         selectedname.innerHTML = "PUMP";
-        currentflow.innerHTML = "1";
-        option1name.innerHTML="Max flow:";
-        var inputAS = document.createElement("input");
-        inputAS.type = "text";
-        option1.appendChild(inputAS);
+        currentflow.innerHTML = "Current flow: " + selected.currentAmount;
 
-        option2name.innerHTML="Current flow:";
-        var spinner = document.createElement('label');
-        spinner.for="spinner";
-        option2.appendChild(spinner);
-        var inputPUMP = document.createElement('input');
-        inputPUMP.id="spinner";
-        inputPUMP.name = "value";
-        spinner.appendChild(inputPUMP);
+        option1.innerHTML='';
+        option1name.innerHTML="Set Max flow:";
+        var maxflow = document.createElement("input");
+        maxflow.type = "number";
+        maxflow.min=0;
+        maxflow.value=selected.GetMaximumFlow();
+        option1.appendChild(maxflow);
+
+        option2.innerHTML='';
+        option2name.innerHTML="Adjust current flow:";
+        var curflow = document.createElement("input");
+        curflow.type = "number";
+        curflow.min=0;
+        curflow.max= selected.GetMaximumFlow();
+        curflow.value=selected.currentAmount;
+        option2.appendChild(curflow);
+
+        // option1name.innerHTML="Max flow:";
+        // var inputAS = document.createElement("input");
+        // inputAS.type = "text";
+        // option1.appendChild(inputAS);
+        //
+        // option2name.innerHTML="Current flow:";
+        // var spinner = document.createElement('label');
+        // spinner.for="spinner";
+        // option2.appendChild(spinner);
+        // var inputPUMP = document.createElement('input');
+        // inputPUMP.id="spinner";
+        // inputPUMP.name = "value";
+        // spinner.appendChild(inputPUMP);
     }
-    if(selected=="Sink")
+    else if(selected instanceof Sink)
     {
         selectedname.innerHTML = "SINK";
-        currentflow.innerHTML = "1";
+        currentflow.innerHTML = "Current flow: " + selected.currentAmount;
+        option1name.innerHTML='';
+        option1.innerHTML='';
+        option2name.innerHTML='';
+        option2.innerHTML='';
     }
-    if(selected=="Merger")
+   else if(selected instanceof Merger)
     {
         selectedname.innerHTML = "MERGER";
-        currentflow.innerHTML = "1";
+        currentflow.innerHTML = "Current flow: " + selected.currentAmount;
+        option1name.innerHTML='';
+        option1.innerHTML='';
+        option2name.innerHTML='';
+        option2.innerHTML='';
     }
-    if(selected=="Pipeline")
+   else  if(selected instanceof Pipeline)
     {
         selectedname.innerHTML = "PIPELINE";
-        currentflow.innerHTML = "1";
+        currentflow.innerHTML = "Current flow: " + selected.currentAmount;
+        option1name.innerHTML='';
+        option1.innerHTML='';
+        option2name.innerHTML='';
+        option2.innerHTML='';
     }
 }
+
+
 
 
 

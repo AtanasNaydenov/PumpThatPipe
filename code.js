@@ -161,7 +161,7 @@ function init() {
         console.log("You have clicked on a component. The node key is:"+_TempNodeKey);
         _MasterPTPControler.selectPart(_TempNodeKey);
         let _selectedData = _MasterPTPControler.findPartOfNode(_TempNodeKey);
-
+        ShowSelectedComponentInfo(_selectedData);
         // show selected stuff method
     });
 
