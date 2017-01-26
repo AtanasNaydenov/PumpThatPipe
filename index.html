@@ -16,18 +16,18 @@
     <script type="text/javascript" src="app.rel/NetworkDesigner/NetworkController.js"></script>
     <script type="text/javascript" src="app.rel/MasterController.js"></script>
 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
+    <!--<script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>-->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="go.js"></script>
     <script type="text/javascript" src="code.js"></script>
-    <title>Pump that pipe</title>
     <script type="text/javascript" src="assets/interaction.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
     <link rel="stylesheet" href="assets/design.css">
+    <title>Pump that pipe</title>
 </head>
 <body onload="init()">
 <div class="canvas" >
@@ -47,48 +47,58 @@
             <div class="actionButton"><input type="file" value="Open" id="openFile"  onclick="getTheFile()"/></div>
             <div class="actionButton"><input target="_blank" type="button" value="New" onclick="window.open(window.location.href )"/></div>
 
+
             <ul class="tab">
-                <li><a href="javascript:void(0)" id ="tabCurrent" class="tablinks" onclick="ShowSettings(event, 'current')" >Current</a></li>
-                <li><a href="javascript:void(0)" id="tabGlobal" class="tablinks" onclick="ShowSettings(event, 'global')">Global</a></li>
+                <li><a href="javascript:void(0)" id ="defaultTab" class="tablinks" onclick="ShowSettings(event, 'current')" >Current</a></li>
+                <li><a href="javascript:void(0)"  class="tablinks" onclick="ShowSettings(event, 'global')">Global</a></li>
              </ul>
 
-
-
             <div id="current" class="tabcontent">
-                  <h3 id="selectedName">ADJUSTABLE SPLITTER</h3>
+                <h3 id="selectedName"></h3>
+                <br>
+                <p id="currentFlow"></p>
+                <br>
+
+                <table>
+                  <tr>
+                      <td> <p id="option1name"></p></td>
+                        <td><div id="option1">
+                       <!--<div id="slider">-->
+                           <!--<div id="custom-handle" class="ui-slider-handle"></div>-->
+                       <!--</div>-->
+                        </div></td>
+                  </tr>
+
+                    <br>
+
+                  <tr>
+                      <td> <p id="option2name"></p></td>
+                      <td> <div id="option2"> </div></td>
+                  </tr>
+                </table>
                    <br>
-                   <p>Current flow:</p>
-                    <p id="currentFlow"></p>
-                    <br><br>
 
-                   <p id="option1name">Upper outflow:</p>
-                   <div id="option1">
-                       <div id="slider">
-                           <div id="custom-handle" class="ui-slider-handle"></div>
-                       </div>
-                   </div>
-
-                    <p id="option2name"></p>
-                    <div id="option2"> </div>
-
-                   <br>
-                   <input id="deletebut" class="DelSaveBtn" type="button" value="Delete" onclick="Delete()"/>
+                <input id="deleteComp" class="DelSaveBtn" type="button" value="Delete" onclick="Delete()"/>
                 <input id="saveComp" class="DelSaveBtn" type="button" value="Save" onclick=""/>
 
             </div>
 
             <div id="global" class="tabcontent">
                 <h3>GLOBAL SETTINGS:</h3><br>
-                <p><label for="spinner">Adjust pipeline capacity <br> for the network:</label>
-                    <br><br>
-                    <input id="spinner" name="value">
-                </p>
-                <input class="DelSaveBtn" type="button" value="Update" onclick=""/>
+
+               <table>
+                   <td>
+                       <p>Adjust pipeline capacity for the network:</p>
+                   </td>
+                   <td>
+                       <input type="number"  min=1 name="value" value="10"><!--value should be current capacity-->
+                   </td>
+               </table>
+
+                <input class="DelSaveBtn" type="button" value="Update" onclick=""/><!--saves the new capacity for pipelines*/-->
             </div>
 
-
         </div>
-
 
     </div>
     <div id="myDiagramDiv" class="drawingArea" style="z-index: 1;"></div>

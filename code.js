@@ -14,6 +14,9 @@ var _MasterPTPControler = new MasterController();
 
 function init() {
     var $ = go.GraphObject.make; // for conciseness in defining templates
+    document.getElementById("defaultTab").click();
+    document.getElementById("current").style.display = 'none';
+
 
     myDiagram =
         $(go.Diagram, "myDiagramDiv", // create a new Diagram in the HTML DIV element "myDiagramDiv"
@@ -136,8 +139,9 @@ function init() {
 
         // displays annotations
         DisplayCompIntro(palette.selection.Da.key.ei);
-
-
+        let _TempNodeKey = myDiagram.selection.Da.key.__gohashid; // this does  work!
+        let _selectedData = _MasterPTPControler.findPartOfNode(_TempNodeKey);
+        ShowSelectedComponentInfo(_selectedData);
         console.log(palette.click);
     });
 
@@ -169,6 +173,9 @@ function init() {
         _MasterPTPControler.selectPart(_TempNodeKey);
         let _selectedData = _MasterPTPControler.findPartOfNode(_TempNodeKey);
 
+        document.getElementById("current").style.display = 'block';
+        ShowSelectedComponentInfo(_selectedData);
+
         // show selected stuff method
     });
 
@@ -188,6 +195,14 @@ function init() {
         console.log("deleted");
         console.dir(_MasterPTPControler);
     });
+
+
+    myDiagram.addDiagramListener("BackgroundSingleClicked", function (e) {
+        var div = document.getElementById("current");
+        div.style.display = 'none';
+    });
+
+
 
 
     palette.addDiagramListener("ObjectSingleClicked", function (e) {
