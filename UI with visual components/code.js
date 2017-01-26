@@ -160,6 +160,9 @@ function init() {
         let _TempNodeKey = myDiagram.selection.Da.key.__gohashid; // this does not work...
         console.log("You have clicked on a component. The node key is:"+_TempNodeKey);
         _MasterPTPControler.selectPart(_TempNodeKey);
+        let _selectedData = _MasterPTPControler.findPartOfNode(_TempNodeKey);
+
+        // show selected stuff method
     });
 
 
