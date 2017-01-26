@@ -5,9 +5,21 @@
 <head>
 
 
+    <script type="text/javascript" src="app.rel/NetworkDesigner/Components/Part.js"></script>
+    <script type="text/javascript" src="app.rel/NetworkDesigner/Components/Pipeline.js"></script>
+    <script type="text/javascript" src="app.rel/NetworkDesigner/Components/Component.js"></script>
+    <script type="text/javascript" src="app.rel/NetworkDesigner/Components/Splitter.js"></script>
+    <script type="text/javascript" src="app.rel/NetworkDesigner/Components/Adjustable_Splitter.js"></script>
+    <script type="text/javascript" src="app.rel/NetworkDesigner/Components/Merger.js"></script>
+    <script type="text/javascript" src="app.rel/NetworkDesigner/Components/Pump.js"></script>
+    <script type="text/javascript" src="app.rel/NetworkDesigner/Components/Sink.js"></script>
+    <script type="text/javascript" src="app.rel/NetworkDesigner/NetworkController.js"></script>
+    <script type="text/javascript" src="app.rel/MasterController.js"></script>
+
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
+    <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
@@ -32,7 +44,7 @@
     <div class="optionsBar" style="z-index: 12;">
         <div class="actionButtons">
             <div class="actionButton"><input type="button" value="Save" onclick="sllave()"/></div>
-            <div class="actionButton"><input type="file" value="Open" id="openFile" onclick="getTheFile()"/></div>
+            <div class="actionButton"><input type="file" value="Open" id="openFile"  onclick="getTheFile()"/></div>
             <div class="actionButton"><input target="_blank" type="button" value="New" onclick="window.open(window.location.href )"/></div>
 
             <ul class="tab">
@@ -57,12 +69,11 @@
                    </div>
 
                     <p id="option2name"></p>
-                    <div id="option2">
-
-                    </div>
+                    <div id="option2"> </div>
 
                    <br>
                    <input id="deletebut" class="DelSaveBtn" type="button" value="Delete" onclick="Delete()"/>
+                <input id="saveComp" class="DelSaveBtn" type="button" value="Save" onclick=""/>
 
             </div>
 
