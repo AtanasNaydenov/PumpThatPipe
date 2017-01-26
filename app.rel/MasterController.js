@@ -233,20 +233,17 @@ class MasterController {
     }
 
     updateSettings(settings) {
-        let _tempUpdateUnit = {};
-        // to make sure the sent object contains relevant values
-        for (var key in settings) {
-            if (p.hasOwnProperty(key)) {
-                console.log(key + " -> " + p[key]);
-                _tempUpdateUnit[key] = p[key];
-            }
-        }
+        // let _tempUpdateUnit = {};
+        // // to make sure the sent object contains relevant values
+        // for (var key in settings) {
+        //     if (p.hasOwnProperty(key)) {
+        //         console.log(key + " -> " + p[key]);
+        //         _tempUpdateUnit[key] = p[key];
+        //     }
+        // }
 
-        let _res = this.CurrentNetworkCtrl.modifyGlobalSettings(_tempUpdateUnit);
-        if (_res) {
-            this.updateCanvas();
-            this.setState(ProgramStateEnum.IDLE);
-        }
+        let _res = this.CurrentNetworkCtrl.modifyGlobalSettings(settings);
+        this.setState(ProgramStateEnum.IDLE);
     }
 
     setCurrentNetworkController(nc) {
@@ -313,7 +310,7 @@ class MasterController {
                 let _res = this.CurrentNetworkCtrl.updateExistingSelectedPart(_tempUpdateUnit);
                 if (_res) {
                     console.log("successfully updated");
-                    this.updateCanvas();
+                    //this.updateCanvas();
                     this.setState(ProgramStateEnum.IDLE);
 
                 } else {
